@@ -2,13 +2,14 @@
 import argparse
 import getpass
 import ipaddress
+import re
 import shlex
 import socket
 import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Set, Tuple
+from typing import Optional, Set, Tuple
 
 
 class Ansi:
@@ -142,6 +143,69 @@ def should_ignore_client_ip(
     return False
 
 
+CLIENT_ERROR_REGEX = re.compile(r"\[client\s+(?P<client>[^\]]+)\]")
+AUTH_LOG_REGEX = re.compile(r"Connection from\s+(?P<ip>\S+).*?port\s+(?P<port>\d+)", re.IGNORECASE)
+
+
+def extrair_ip_log(linha: str, tipo_erro: bool, tipo_auth: bool) -> Optional[Tuple[str, Optional[str]]]:
+    """Obtém IP e porta relevantes, conforme formatação do log."""
+
+    if tipo_auth:
+        match_auth = AUTH_LOG_REGEX.search(linha)
+        if not match_auth:
+            return None
+        ip = match_auth.group("ip").strip().strip("[]")
+        porta = match_auth.group("port").strip()
+        return ip, porta
+
+    if tipo_erro:
+        match = CLIENT_ERROR_REGEX.search(linha)
+        if not match:
+            return None
+        cliente_bruto = match.group("client").strip()
+        if not cliente_bruto:
+            return None
+
+        candidato = cliente_bruto.split()[0]
+        porta: Optional[str] = None
+
+        # Formatos como [IPv6]:porta
+        if candidato.startswith("["):
+            fechamento = candidato.find("]")
+            if fechamento != -1:
+                ip_puro = candidato[1:fechamento]
+                restante = candidato[fechamento + 1 :]
+                if restante.startswith(":") and restante[1:].isdigit():
+                    porta = restante[1:]
+                candidato = ip_puro
+            else:
+                candidato = candidato.lstrip("[")
+
+        # Último ':' com dígitos representa porta (IPv4 ou IPv6)
+        if ":" in candidato:
+            ip_parte, _, porta_parte = candidato.rpartition(":")
+            if porta_parte.isdigit() and ip_parte:
+                porta = porta_parte
+                candidato = ip_parte
+
+        return (candidato, porta)
+
+    # Access log: utilizar primeiro campo, porta opcional para IPv4
+    if not linha:
+        return None
+    primeiro = linha.split(None, 1)[0]
+    token = primeiro.strip().strip("[]")
+    porta: Optional[str] = None
+
+    if ":" in token:
+        ip_parte, _, porta_parte = token.rpartition(":")
+        if porta_parte.isdigit() and ip_parte:
+            porta = porta_parte
+            token = ip_parte
+
+    return (token, porta)
+
+
 def run_tail(host: str, port: int, username: str, remote_file: str, line_count: int) -> int:
     print(f"{Ansi.yellow}Conectando em {username}@{host}:{port}\u2026{Ansi.reset}", file=sys.stderr)
     host_aliases, host_addr_objects = resolve_host_ips(host)
@@ -204,6 +268,11 @@ def run_tail(host: str, port: int, username: str, remote_file: str, line_count: 
 
     linhas_emitidas = 0
     linhas_filtradas = 0
+    linhas_validas = 0
+
+    eh_error_log = Path(remote_file).name.lower() == "error.log"
+    eh_auth_log = Path(remote_file).name.lower() == "auth.log"
+    contador_ips: dict[Tuple[str, Optional[str]], int] = {}
 
     timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M")
     output_path = Path(f"{Path(remote_file).name}_{timestamp}.txt")
@@ -227,21 +296,48 @@ def run_tail(host: str, port: int, username: str, remote_file: str, line_count: 
             linhas_filtradas += 1
             continue
 
-        parts = stripped.split()
-        if not parts:
+        ip_info = extrair_ip_log(stripped, eh_error_log, eh_auth_log)
+        if ip_info is None:
             linhas_filtradas += 1
             continue
 
-        client_ip_field = parts[0]
-        if should_ignore_client_ip(client_ip_field, host_aliases, host_addr_objects):
+        ip_sem_porta, porta = ip_info
+
+        if should_ignore_client_ip(ip_sem_porta, host_aliases, host_addr_objects):
             linhas_filtradas += 1
             continue
 
-        print(f"{Ansi.green}{stripped}{Ansi.reset}")
+        if eh_error_log and "[client " not in stripped:
+            linhas_filtradas += 1
+            continue
+
+        if eh_error_log or eh_auth_log:
+            chave = (ip_sem_porta, porta)
+            contador_ips[chave] = contador_ips.get(chave, 0) + 1
+            linhas_validas += 1
+            continue
+
+        linha_saida = stripped
+
+        print(f"{Ansi.green}{linha_saida}{Ansi.reset}")
         if destino is not None:
-            destino.write(stripped + "\n")
+            destino.write(linha_saida + "\n")
         linhas_emitidas += 1
+        linhas_validas += 1
     proc.stdout.close()
+
+    if contador_ips:
+        for (ip_sem_porta, porta), quantidade in contador_ips.items():
+            if porta:
+                linha_agregada = f"{ip_sem_porta} {porta} {quantidade}"
+            else:
+                linha_agregada = f"{ip_sem_porta} {quantidade}"
+
+            print(f"{Ansi.green}{linha_agregada}{Ansi.reset}")
+            if destino is not None:
+                destino.write(linha_agregada + "\n")
+
+        linhas_emitidas = len(contador_ips)
 
     if destino is not None:
         destino.close()
@@ -257,8 +353,9 @@ def run_tail(host: str, port: int, username: str, remote_file: str, line_count: 
             file=sys.stderr,
         )
 
-    if linhas_emitidas < line_count:
-        faltando = line_count - linhas_emitidas
+    linhas_consideradas = linhas_validas
+    if linhas_consideradas < line_count:
+        faltando = line_count - linhas_consideradas
         print(
             f"{Ansi.yellow}Aviso: {faltando} linhas foram filtradas ou não estavam disponíveis.{Ansi.reset}",
             file=sys.stderr,
