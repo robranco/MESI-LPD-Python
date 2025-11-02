@@ -1,0 +1,2 @@
+# ssh-scanner runtime requirements
+# All dependencies are provided by the Python standard library.
