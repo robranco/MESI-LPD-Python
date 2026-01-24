@@ -1,0 +1,36 @@
+host,port,section,direction,name,strength,reason,reference
+192.168.1.101,22,banner,,SSH-2.0-OpenSSH_10.0,,,
+192.168.1.101,22,resolved_hostname,,homeassistant,,,
+192.168.1.101,22,version,,SSH v2,,,
+192.168.1.101,22,first_kex_packet_follows,,False,,,
+192.168.1.101,22,scan_duration_seconds,,2.231,,,
+192.168.1.101,22,kex_algorithm,,mlkem768x25519-sha256,strong,Includes post-quantum or hybrid key exchange; treated as strong pending formal guidance.,
+192.168.1.101,22,kex_algorithm,,sntrup761x25519-sha512,strong,Includes post-quantum or hybrid key exchange; treated as strong pending formal guidance.,
+192.168.1.101,22,kex_algorithm,,sntrup761x25519-sha512@openssh.com,strong,"Hybrid NTRU Prime 761 + X25519 (2020) with SHA-512, exceeding NIST Level 1 minimums.",
+192.168.1.101,22,kex_algorithm,,curve25519-sha256,strong,Curve25519 (2014) + SHA-256; ~128-bit strength matching NIST SP 800-57 Level 1 guidance.,
+192.168.1.101,22,kex_algorithm,,curve25519-sha256@libssh.org,strong,Libssh.org Curve25519 (2014) w/ SHA-256; aligns with NIST >=128-bit recommendations.,
+192.168.1.101,22,kex_algorithm,,ext-info-s,intermediate,At or near NIST minimums but held back by SHA-1 reliance; upgrade recommended.,
+192.168.1.101,22,kex_algorithm,,kex-strict-s-v00@openssh.com,intermediate,At or near NIST minimums but held back by SHA-1 reliance; upgrade recommended.,
+192.168.1.101,22,host_key_algorithm,,rsa-sha2-512,strong,RSA with SHA-512 (2018); strong hash and >=2048-bit RSA meets NIST Level 1.,https://csrc.nist.gov/publications/detail/fips/186/5/final
+192.168.1.101,22,host_key_algorithm,,rsa-sha2-256,strong,RSA with SHA-256 (2018); requires >=2048-bit keys to satisfy NIST Level 1.,https://csrc.nist.gov/publications/detail/fips/186/5/final
+192.168.1.101,22,host_key_algorithm,,ssh-ed25519,strong,Ed25519 (2014) ~128-bit strength with SHA-512; exceeds NIST Level 1 recommendations.,
+192.168.1.101,22,cipher,client->server,aes256-gcm@openssh.com,strong,AES-256 (2001) in GCM mode (2007) providing AEAD and 256-bit security margin.,https://csrc.nist.gov/publications/detail/sp/800-38d/final
+192.168.1.101,22,cipher,client->server,aes128-gcm@openssh.com,strong,AES-128 (2001) in GCM mode (2007) offering authenticated encryption with 128-bit security.,https://csrc.nist.gov/publications/detail/sp/800-38d/final
+192.168.1.101,22,cipher,client->server,aes256-ctr,strong,AES-256 (2001) in CTR mode; 256-bit key gives long-term strength.,https://csrc.nist.gov/publications/detail/sp/800-38a/final
+192.168.1.101,22,cipher,client->server,aes192-ctr,strong,AES-192 (2001) in CTR mode; extended key length offers strong margin.,https://csrc.nist.gov/publications/detail/sp/800-38a/final
+192.168.1.101,22,cipher,client->server,aes128-ctr,strong,AES-128 (2001) in CTR mode; 128-bit key remains strong when paired with modern MACs.,https://csrc.nist.gov/publications/detail/sp/800-38a/final
+192.168.1.101,22,cipher,server->client,aes256-gcm@openssh.com,strong,AES-256 (2001) in GCM mode (2007) providing AEAD and 256-bit security margin.,https://csrc.nist.gov/publications/detail/sp/800-38d/final
+192.168.1.101,22,cipher,server->client,aes128-gcm@openssh.com,strong,AES-128 (2001) in GCM mode (2007) offering authenticated encryption with 128-bit security.,https://csrc.nist.gov/publications/detail/sp/800-38d/final
+192.168.1.101,22,cipher,server->client,aes256-ctr,strong,AES-256 (2001) in CTR mode; 256-bit key gives long-term strength.,https://csrc.nist.gov/publications/detail/sp/800-38a/final
+192.168.1.101,22,cipher,server->client,aes192-ctr,strong,AES-192 (2001) in CTR mode; extended key length offers strong margin.,https://csrc.nist.gov/publications/detail/sp/800-38a/final
+192.168.1.101,22,cipher,server->client,aes128-ctr,strong,AES-128 (2001) in CTR mode; 128-bit key remains strong when paired with modern MACs.,https://csrc.nist.gov/publications/detail/sp/800-38a/final
+192.168.1.101,22,mac,client->server,hmac-sha2-512-etm@openssh.com,strong,,
+192.168.1.101,22,mac,client->server,hmac-sha2-256-etm@openssh.com,strong,,
+192.168.1.101,22,mac,client->server,umac-128-etm@openssh.com,strong,,
+192.168.1.101,22,mac,server->client,hmac-sha2-512-etm@openssh.com,strong,,
+192.168.1.101,22,mac,server->client,hmac-sha2-256-etm@openssh.com,strong,,
+192.168.1.101,22,mac,server->client,umac-128-etm@openssh.com,strong,,
+192.168.1.101,22,cve_query,,OpenSSH 10.0,,,https://nvd.nist.gov/vuln/search/results?query=OpenSSH%2010.0
+192.168.1.101,22,cve,,CVE-2014-8475,,"FreeBSD 9.1, 9.2, and 10.0, when compiling OpenSSH with Kerberos support, uses incorrect library ordering when linking sshd, which causes symbols to be resolved incorrectly and allows remote attackers to cause a denial of service (sshd deadlock and prevention of new connections) by ending multiple connections before authentication is completed.",https://nvd.nist.gov/vuln/detail/CVE-2014-8475
+192.168.1.101,22,cve,,CVE-2023-51767,,"OpenSSH through 10.0, when common types of DRAM are used, might allow row hammer attacks (for authentication bypass) because the integer value of authenticated in mm_answer_authpassword does not resist flips of a single bit. NOTE: this is applicable to a certain threat model of attacker-victim co-location in which the attacker has user privileges. NOTE: this is disputed by the Supplier, who states ""we do not consider it to be the application's responsibility to defend against platform architectural weaknesses.""",https://nvd.nist.gov/vuln/detail/CVE-2023-51767
+192.168.1.101,22,cve,,CVE-2025-32728,,"In sshd in OpenSSH before 10.0, the DisableForwarding directive does not adhere to the documentation stating that it disables X11 and agent forwarding.",https://nvd.nist.gov/vuln/detail/CVE-2025-32728

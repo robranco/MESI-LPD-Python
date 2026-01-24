@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>SSH Scan Ranking</title>
+<style>body{font-family:Menlo,Consolas,monospace;background:#111;color:#eaeaea;padding:18px;}h1{color:#90caf9;} table{border-collapse:collapse;width:100%;margin-top:16px;}th,td{border:1px solid #444;padding:6px;text-align:left;}th{background:#1f1f1f;} .weak{color:#ef5350;} .strong{color:#66bb6a;} .intermediate{color:#ffca28;}.run-metadata{background:#1b1b1b;border:1px solid #333;padding:12px;border-radius:8px;margin-top:18px;}.run-metadata h2{margin-top:0;color:#90caf9;font-size:1.2rem;}.run-metadata ul{list-style:none;padding-left:0;margin:8px 0 0;}.run-metadata li{margin:4px 0;}.meta-label{font-weight:bold;color:#e0e0e0;margin-right:6px;}.meta-code{background:#212121;padding:2px 6px;border-radius:4px;}.chart-stack{display:flex;flex-direction:column;gap:18px;margin-top:18px;}.chart-section{background:#1b1b1b;border:1px solid #333;padding:12px;border-radius:8px;}.bar-row{margin-top:12px;}.bar-header{display:flex;justify-content:space-between;font-size:0.95rem;}.bar-label{color:#e0e0e0;max-width:70%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}.bar-value{color:#64b5f6;margin-left:12px;}.bar-track{background:#2a2a2a;border-radius:6px;height:10px;margin-top:4px;overflow:hidden;}.bar-fill{height:100%;border-radius:6px;}.bar-fill-negative{background:#ef5350;}.cve-host-groups{margin-top:28px;}.cve-host-groups table{margin-top:12px;}.cve-host-list{margin:8px 0 0 18px;}.cve-host{color:#e0e0e0;}.cve-hostname{color:#90caf9;}.cve-severity{display:block;font-weight:bold;}.cve-score{display:block;font-size:0.85rem;color:#fdd835;margin-top:2px;}.severity-critical{color:#ef5350;}.severity-high{color:#ff7043;}.severity-medium{color:#ffca28;}.severity-low{color:#64b5f6;}.severity-none{color:#90caf9;}.severity-unknown{color:#b0bec5;}</style>
+</head><body>
+<h1>Parallel SSH Scan Ranking</h1>
+<div class="run-metadata">
+<h2>Execution Summary</h2>
+<ul>
+<li><span class="meta-label">Command:</span><code class="meta-code">ssh-scanner.py -t 2 --parallel-workers 100 --lookup-cves 192.168.1.0/24</code></li>
+<li><span class="meta-label">Start:</span>2025-11-04 20:32:57</li>
+<li><span class="meta-label">End:</span>2025-11-04 20:33:06</li>
+<li><span class="meta-label">Total Runtime:</span>9.277 s</li>
+<li><span class="meta-label">Average Per Host:</span>2.245 s</li>
+<li><span class="meta-label">Hosts Analyzed:</span>3</li>
+</ul>
+</div>
+<p>The ranking score applies 2 points for each strong finding, 1 point for each intermediate finding, and subtracts 2 points for each weak finding; hosts that do not support SSH v2 incur an additional 5 point penalty.</p>
+<table><tr><th>Rank</th><th>Host</th><th>Hostname</th><th>Duration (s)</th><th>Platform Insight</th><th>Score</th><th>Strong</th><th>Intermediate</th><th>Weak</th><th>SSH v2</th><th>Banner</th></tr>
+<tr>
+<td>1</td>
+<td>192.168.1.101:22</td>
+<td>homeassistant</td>
+<td>2.231</td>
+<td>OpenSSH 10.0</td>
+<td class="strong">38</td><td>18</td><td>2</td><td class="weak">0</td><td>yes</td>
+<td>SSH-2.0-OpenSSH_10.0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>192.168.1.80:22</td>
+<td>D2260G</td>
+<td>2.294</td>
+<td>Dropbear SSH</td>
+<td class="strong">26</td><td>13</td><td>2</td><td class="weak">1</td><td>yes</td>
+<td>SSH-2.0-dropbear_2020.81</td>
+</tr>
+<tr>
+<td>3</td>
+<td>192.168.1.254:22</td>
+<td>GEN8</td>
+<td>2.209</td>
+<td>Dropbear SSH</td>
+<td class="weak">-4</td><td>8</td><td>0</td><td class="weak">10</td><td>yes</td>
+<td>SSH-2.0-dropbear_2017.75</td>
+</tr>
+</table>
+<div class="chart-stack">
+<div class="chart-section">
+<h2>Score Ranking</h2>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">192.168.1.101:22</span><span class="bar-value">38</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:100.0%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">192.168.1.80:22</span><span class="bar-value">26</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:68.4%;background:#bbbe47;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">192.168.1.254:22</span><span class="bar-value">-4</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:10.5%;background:#d32f2f;"></div>
+</div>
+</div>
+</div>
+<div class="chart-section">
+<h2>Cipher Occurrences</h2>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">chacha20-poly1305@openssh.com</span><span class="bar-value">2</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">aes256-ctr</span><span class="bar-value">6</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:100.0%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">aes256-gcm@openssh.com</span><span class="bar-value">2</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">aes192-ctr</span><span class="bar-value">2</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">aes128-ctr</span><span class="bar-value">6</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:100.0%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">aes128-gcm@openssh.com</span><span class="bar-value">2</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">aes256-cbc</span><span class="bar-value">2</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#ef5350;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">twofish256-cbc</span><span class="bar-value">2</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#ef5350;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">aes128-cbc</span><span class="bar-value">2</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#ef5350;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">twofish-cbc</span><span class="bar-value">2</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#ef5350;"></div>
+</div>
+</div>
+</div>
+<div class="chart-section">
+<h2>Algorithm Occurrences</h2>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">curve25519-sha256@libssh.org</span><span class="bar-value">3</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:100.0%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">curve25519-sha256</span><span class="bar-value">2</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:66.7%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">diffie-hellman-group16-sha512</span><span class="bar-value">1</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">diffie-hellman-group14-sha256</span><span class="bar-value">2</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:66.7%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">ecdh-sha2-nistp521</span><span class="bar-value">1</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">ecdh-sha2-nistp384</span><span class="bar-value">1</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">ecdh-sha2-nistp256</span><span class="bar-value">1</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">mlkem768x25519-sha256</span><span class="bar-value">1</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">sntrup761x25519-sha512</span><span class="bar-value">1</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">sntrup761x25519-sha512@openssh.com</span><span class="bar-value">1</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">diffie-hellman-group14-sha1</span><span class="bar-value">1</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#fdd835;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">ext-info-s</span><span class="bar-value">1</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#fdd835;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">kex-strict-s-v00@openssh.com</span><span class="bar-value">1</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#fdd835;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">kexguess2@matt.ucc.asn.au</span><span class="bar-value">1</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#fdd835;"></div>
+</div>
+</div>
+</div>
+<div class="chart-section">
+<h2>Key Size Occurrences</h2>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">&gt;=2048-bit (rsa-sha2-256, rsa-sha2-512)</span><span class="bar-value">3</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:100.0%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">256-bit (ssh-ed25519)</span><span class="bar-value">1</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">521-bit (ecdsa-sha2-nistp521)</span><span class="bar-value">1</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#66bb6a;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">&gt;=1024-bit (ssh-rsa)</span><span class="bar-value">2</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:66.7%;background:#d32f2f;"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-header"><span class="bar-label">1024-bit (ssh-dss)</span><span class="bar-value">1</span></div>
+<div class="bar-track">
+<div class="bar-fill" style="width:33.3%;background:#d32f2f;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cve-host-groups">
+<h2>Hosts Sharing Common CVEs</h2>
+<table><tr><th>Rank</th><th>CVE</th><th>Severity</th><th>Affected Hosts</th><th>Summary</th></tr>
+<tr>
+<td>1</td>
+<td><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-9078" target="_blank">CVE-2017-9078</a></td>
+<td><span class="cve-severity severity-high">High</span><span class="cve-score">Score: 8.8</span></td>
+<td>1 host(s)<ul class="cve-host-list"><li><span class="cve-host">192.168.1.254:22</span> <span class="cve-hostname">(GEN8)</span></li></ul></td>
+<td>The server in Dropbear before 2017.75 might allow post-authentication root remote code execution because of a double free in cleanup of TCP listeners when the -a option is enabled.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="https://nvd.nist.gov/vuln/detail/CVE-2021-36369" target="_blank">CVE-2021-36369</a></td>
+<td><span class="cve-severity severity-high">High</span><span class="cve-score">Score: 7.5</span></td>
+<td>1 host(s)<ul class="cve-host-list"><li><span class="cve-host">192.168.1.80:22</span> <span class="cve-hostname">(D2260G)</span></li></ul></td>
+<td>An issue was discovered in Dropbear through 2020.81. Due to a non-RFC-compliant check of the available authentication methods in the client-side SSH code, it is possible for an SSH server to change the login process in its favor. This attack can bypass additional security measures such as FIDO2 tokens or SSH-Askpass. Thus, it allows an attacker to abuse a forwarded agent for logging on to another server unnoticed.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-51767" target="_blank">CVE-2023-51767</a></td>
+<td><span class="cve-severity severity-high">High</span><span class="cve-score">Score: 7.0</span></td>
+<td>1 host(s)<ul class="cve-host-list"><li><span class="cve-host">192.168.1.101:22</span> <span class="cve-hostname">(homeassistant)</span></li></ul></td>
+<td>OpenSSH through 10.0, when common types of DRAM are used, might allow row hammer attacks (for authentication bypass) because the integer value of authenticated in mm_answer_authpassword does not resist flips of a single bit. NOTE: this is applicable to a certain threat model of attacker-victim co-location in which the attacker has user privileges. NOTE: this is disputed by the Supplier, who states &quot;we do not consider it to be the application&#x27;s responsibility to defend against platform architectural weaknesses.&quot;</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-9079" target="_blank">CVE-2017-9079</a></td>
+<td><span class="cve-severity severity-medium">Medium</span><span class="cve-score">Score: 4.7</span></td>
+<td>1 host(s)<ul class="cve-host-list"><li><span class="cve-host">192.168.1.254:22</span> <span class="cve-hostname">(GEN8)</span></li></ul></td>
+<td>Dropbear before 2017.75 might allow local users to read certain files as root, if the file has the authorized_keys file format with a command= option. This occurs because ~/.ssh/authorized_keys is read with root privileges and symlinks are followed.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="https://nvd.nist.gov/vuln/detail/CVE-2014-8475" target="_blank">CVE-2014-8475</a></td>
+<td><span class="cve-severity severity-medium">Medium</span><span class="cve-score">Score: 4.3</span></td>
+<td>1 host(s)<ul class="cve-host-list"><li><span class="cve-host">192.168.1.101:22</span> <span class="cve-hostname">(homeassistant)</span></li></ul></td>
+<td>FreeBSD 9.1, 9.2, and 10.0, when compiling OpenSSH with Kerberos support, uses incorrect library ordering when linking sshd, which causes symbols to be resolved incorrectly and allows remote attackers to cause a denial of service (sshd deadlock and prevention of new connections) by ending multiple connections before authentication is completed.</td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-32728" target="_blank">CVE-2025-32728</a></td>
+<td><span class="cve-severity severity-medium">Medium</span><span class="cve-score">Score: 4.3</span></td>
+<td>1 host(s)<ul class="cve-host-list"><li><span class="cve-host">192.168.1.101:22</span> <span class="cve-hostname">(homeassistant)</span></li></ul></td>
+<td>In sshd in OpenSSH before 10.0, the DisableForwarding directive does not adhere to the documentation stating that it disables X11 and agent forwarding.</td>
+</tr>
+</table>
+</div>
+</body></html>

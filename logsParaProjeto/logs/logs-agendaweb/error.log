@@ -1,0 +1,455 @@
+PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/lib/php5/20121212/newrelic.so' - /usr/lib/php5/20121212/newrelic.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[Mon Jan 12 06:44:40.481066 2026] [ssl:warn] [pid 4113] AH02292: Init: Name-based SSL virtual hosts only work for clients with TLS server name indication support (RFC 4366)
+[Mon Jan 12 06:44:40.486429 2026] [:notice] [pid 4113] mod_qos(009): loaded MPM is 'prefork' but mod_qos should be used with MPM 'Worker' only.
+[Mon Jan 12 06:44:40.486465 2026] [:notice] [pid 4113] mod_qos(009): server version is 2.4 but mod_qos should be used with Apache 2.2 only.
+[Mon Jan 12 06:44:41.000586 2026] [mpm_prefork:notice] [pid 4113] AH00163: Apache/2.4.7 (Ubuntu) mod_fcgid/2.3.9 PHP/5.5.9-1ubuntu4.29+esm15 OpenSSL/1.0.1f mod_qos/10.28 configured -- resuming normal operations
+[Mon Jan 12 06:44:41.000638 2026] [core:notice] [pid 4113] AH00094: Command line: '/usr/sbin/apache2'
+[Mon Jan 12 08:33:40.483171 2026] [core:error] [pid 8216] [client 101.36.104.242:51686] AH00126: Invalid URI in request POST /cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh HTTP/1.1
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', 'undefined', 'undefined', 'undefined')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', 'undefined', 'undefined', 'undefined')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+[Mon Jan 12 11:04:09.904464 2026] [ssl:error] [pid 17652] [client 44.220.185.83:48266] AH02042: rejecting client initiated renegotiation
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', 'undefined', 'undefined', 'undefined')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Invalid argument supplied for foreach()' in /var/www/html/agenda/index.php:129
+Stack trace:
+#0 /var/www/html/agenda/index.php(129): Slim\Slim::handleErrors(2, 'Invalid argumen...', '/var/www/html/a...', 129, Array)
+#1 [internal function]: solicitaDataRest('INFANTIL', '002000_CONSULTA', '2026-01-14', '10.132.251.248:...')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaDataRes...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+[Mon Jan 12 18:01:27.889052 2026] [spamhaus:crit] [pid 27851] [client 91.92.41.51:63590] mod_spamhaus: address 51.41.92.91.sbl-xbl.spamhaus.org is blacklisted. Deny connection to 104.131.34.108/
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+[Mon Jan 12 23:40:32.485658 2026] [spamhaus:crit] [pid 32489] [client 78.153.140.251:47410] mod_spamhaus: address 251.140.153.78.sbl-xbl.spamhaus.org is blacklisted. Deny connection to 104.131.34.108/
+[Tue Jan 13 00:19:57.690171 2026] [:error] [pid 11943] [client 45.93.251.137:21254] mod_qos(045): access denied, invalid request line: can't parse uri, c=45.93.251.137, id=C-dWdzxIBgB-AAEBAQAAAKcuAACApypMbnBlaQAAAAA
+[Tue Jan 13 01:59:45.354118 2026] [cgi:error] [pid 11954] [client 77.83.39.144:38440] script not found or unable to stat: /usr/lib/cgi-bin/.env
+[Tue Jan 13 03:17:58.640776 2026] [:error] [pid 18627] [client 45.93.251.137:37062] mod_qos(045): access denied, invalid request line: can't parse uri, c=45.93.251.137, id=fVH58z5IBgB-AAEBBAAAAMNIAACApypMpnllaQAAAAA
+[Tue Jan 13 03:31:18.700370 2026] [:error] [pid 11943] [client 45.93.251.137:58730] mod_qos(045): access denied, invalid request line: can't parse uri, c=45.93.251.137, id=GkmpIz9IBgB-AAEBAQAAAKcuAACApypMb3BlaQAAAAA
+[Tue Jan 13 04:03:52.983837 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/10.php' not found or unable to stat
+[Tue Jan 13 04:03:53.180560 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/02.php' not found or unable to stat
+[Tue Jan 13 04:03:53.600444 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/usr/lib/cgi-bin/index.php' not found or unable to stat
+[Tue Jan 13 04:03:53.816507 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/admin.php' not found or unable to stat
+[Tue Jan 13 04:03:54.406915 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/info.php' not found or unable to stat
+[Tue Jan 13 04:03:54.602463 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/about.php' not found or unable to stat
+[Tue Jan 13 04:03:55.321721 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/ss1.php' not found or unable to stat
+[Tue Jan 13 04:03:55.773052 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/goods.php' not found or unable to stat
+[Tue Jan 13 04:03:55.970493 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/admin.php' not found or unable to stat
+[Tue Jan 13 04:03:56.169439 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/222.php' not found or unable to stat
+[Tue Jan 13 04:03:56.363427 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/abcd.php' not found or unable to stat
+[Tue Jan 13 04:03:56.780607 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/adminfuns.php' not found or unable to stat
+[Tue Jan 13 04:03:56.975130 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/ioxi-o.php' not found or unable to stat
+[Tue Jan 13 04:03:57.366872 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/goat.php' not found or unable to stat
+[Tue Jan 13 04:03:57.761228 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/xx.php' not found or unable to stat
+[Tue Jan 13 04:03:57.984341 2026] [autoindex:error] [pid 32489] [client 40.113.19.56:4947] AH01276: Cannot serve directory /var/www/html/.well-known/: No matching DirectoryIndex (index.php,index.html,index.cgi,index.pl,index.xhtml,index.htm) found, and server-generated directory index forbidden by Options directive
+[Tue Jan 13 04:03:58.371551 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/f5.php' not found or unable to stat
+[Tue Jan 13 04:03:58.563454 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/doc.php' not found or unable to stat
+[Tue Jan 13 04:03:58.755370 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/1.php' not found or unable to stat
+[Tue Jan 13 04:03:58.964600 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/xtride.php' not found or unable to stat
+[Tue Jan 13 04:03:59.202520 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/flower.php' not found or unable to stat
+[Tue Jan 13 04:03:59.405801 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/flower2.php' not found or unable to stat
+[Tue Jan 13 04:03:59.651595 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/f6.php' not found or unable to stat
+[Tue Jan 13 04:03:59.899087 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/edit.php' not found or unable to stat
+[Tue Jan 13 04:04:00.124371 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/aa.php' not found or unable to stat
+[Tue Jan 13 04:04:00.318389 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/ext.php' not found or unable to stat
+[Tue Jan 13 04:04:00.925408 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/av.php' not found or unable to stat
+[Tue Jan 13 04:04:01.384812 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/wsd.php' not found or unable to stat
+[Tue Jan 13 04:04:01.593136 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/sadd5.php' not found or unable to stat
+[Tue Jan 13 04:04:01.791412 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/sadd5.php' not found or unable to stat
+[Tue Jan 13 04:04:01.986653 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/classwithtostring.php' not found or unable to stat
+[Tue Jan 13 04:04:02.187754 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/file48.php' not found or unable to stat
+[Tue Jan 13 04:04:02.581179 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/index.php' not found or unable to stat
+[Tue Jan 13 04:04:02.773571 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/css.php' not found or unable to stat
+[Tue Jan 13 04:04:02.985601 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/alfa.php' not found or unable to stat
+[Tue Jan 13 04:04:03.179564 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/inputs.php' not found or unable to stat
+[Tue Jan 13 04:04:03.378278 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/wen.php' not found or unable to stat
+[Tue Jan 13 04:04:03.572248 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/x.php' not found or unable to stat
+[Tue Jan 13 04:04:03.769316 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/xxxx.php' not found or unable to stat
+[Tue Jan 13 04:04:04.236202 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/class.php' not found or unable to stat
+[Tue Jan 13 04:04:04.620900 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/gec.php' not found or unable to stat
+[Tue Jan 13 04:04:04.815297 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/f35.php' not found or unable to stat
+[Tue Jan 13 04:04:05.306901 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/pp.php' not found or unable to stat
+[Tue Jan 13 04:04:05.917658 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/lock360.php' not found or unable to stat
+[Tue Jan 13 04:04:06.109391 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/lv.php' not found or unable to stat
+[Tue Jan 13 04:04:06.301059 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/lv.php' not found or unable to stat
+[Tue Jan 13 04:04:06.495553 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/byp.php' not found or unable to stat
+[Tue Jan 13 04:04:06.688114 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/galex.php' not found or unable to stat
+[Tue Jan 13 04:04:06.885728 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/as.php' not found or unable to stat
+[Tue Jan 13 04:04:07.079552 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/pn.php' not found or unable to stat
+[Tue Jan 13 04:04:07.271604 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/class-t.api.php' not found or unable to stat
+[Tue Jan 13 04:04:07.523722 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/bipas.php' not found or unable to stat
+[Tue Jan 13 04:04:07.769955 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/ha.php' not found or unable to stat
+[Tue Jan 13 04:04:07.964398 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/maa.php' not found or unable to stat
+[Tue Jan 13 04:04:08.156856 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/shoyo.php' not found or unable to stat
+[Tue Jan 13 04:04:08.373271 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/admin.php' not found or unable to stat
+[Tue Jan 13 04:04:08.568205 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/wp-l0gin.php' not found or unable to stat
+[Tue Jan 13 04:04:08.792387 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/ar.php' not found or unable to stat
+[Tue Jan 13 04:04:08.983948 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/blurbs18.php' not found or unable to stat
+[Tue Jan 13 04:04:09.183462 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/radio.php' not found or unable to stat
+[Tue Jan 13 04:04:09.375271 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/wp-good.php' not found or unable to stat
+[Tue Jan 13 04:04:09.567931 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/bless14.php' not found or unable to stat
+[Tue Jan 13 04:04:09.761336 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/ws13.php' not found or unable to stat
+[Tue Jan 13 04:04:09.967475 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/m.php' not found or unable to stat
+[Tue Jan 13 04:04:10.169830 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/.well-known/gecko-litespeed.php' not found or unable to stat
+[Tue Jan 13 04:04:11.031357 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/Contrller.php' not found or unable to stat
+[Tue Jan 13 04:04:11.492627 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/.well-known/admin.php' not found or unable to stat
+[Tue Jan 13 04:04:11.891798 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/tx1.php' not found or unable to stat
+[Tue Jan 13 04:04:12.294300 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/zwso.php' not found or unable to stat
+[Tue Jan 13 04:04:12.486502 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/wp-trackback.php' not found or unable to stat
+[Tue Jan 13 04:04:12.740061 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/autoload_classmap.php' not found or unable to stat
+[Tue Jan 13 04:04:12.988683 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/nns.php' not found or unable to stat
+[Tue Jan 13 04:04:13.387589 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/lx.php' not found or unable to stat
+[Tue Jan 13 04:04:13.599562 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/fw.php' not found or unable to stat
+[Tue Jan 13 04:04:13.805258 2026] [:error] [pid 32489] [client 40.113.19.56:4947] script '/var/www/html/bless.php' not found or unable to stat
+[Tue Jan 13 04:04:14.627358 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/X7x.php' not found or unable to stat
+[Tue Jan 13 04:04:14.917461 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/class20.php' not found or unable to stat
+[Tue Jan 13 04:04:15.110113 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/lock360.php' not found or unable to stat
+[Tue Jan 13 04:04:15.315591 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/moon.php' not found or unable to stat
+[Tue Jan 13 04:04:15.514422 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/themes.php' not found or unable to stat
+[Tue Jan 13 04:04:15.699961 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/gifclass4.php' not found or unable to stat
+[Tue Jan 13 04:04:15.886109 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/gorila.php' not found or unable to stat
+[Tue Jan 13 04:04:16.086592 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/xvent.php' not found or unable to stat
+[Tue Jan 13 04:04:16.303372 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/wp-aaa.php' not found or unable to stat
+[Tue Jan 13 04:04:16.503003 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/ut.php' not found or unable to stat
+[Tue Jan 13 04:04:16.699900 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/class19.php' not found or unable to stat
+[Tue Jan 13 04:04:16.980123 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/0x.php' not found or unable to stat
+[Tue Jan 13 04:04:17.246641 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/444.php' not found or unable to stat
+[Tue Jan 13 04:04:17.465797 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/efile.php' not found or unable to stat
+[Tue Jan 13 04:04:17.749336 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/mg.php' not found or unable to stat
+[Tue Jan 13 04:04:17.966781 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/build.php' not found or unable to stat
+[Tue Jan 13 04:04:18.246122 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/plss3.php' not found or unable to stat
+[Tue Jan 13 04:04:18.506457 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/about3.php' not found or unable to stat
+[Tue Jan 13 04:04:18.763818 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/atomlib.php' not found or unable to stat
+[Tue Jan 13 04:04:18.951068 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/we.php' not found or unable to stat
+[Tue Jan 13 04:04:19.145451 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/fe5.php' not found or unable to stat
+[Tue Jan 13 04:04:19.331540 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/usep.php' not found or unable to stat
+[Tue Jan 13 04:04:19.527812 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/nc4.php' not found or unable to stat
+[Tue Jan 13 04:04:19.738647 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/cccc.php' not found or unable to stat
+[Tue Jan 13 04:04:19.927705 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/locale.php' not found or unable to stat
+[Tue Jan 13 04:04:20.135017 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/t.php' not found or unable to stat
+[Tue Jan 13 04:04:20.321080 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/bp.php' not found or unable to stat
+[Tue Jan 13 04:04:20.787920 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/geck.php' not found or unable to stat
+[Tue Jan 13 04:04:20.974881 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/wpc.php' not found or unable to stat
+[Tue Jan 13 04:04:21.203430 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/yellow.php' not found or unable to stat
+[Tue Jan 13 04:04:21.391589 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/a.php' not found or unable to stat
+[Tue Jan 13 04:04:21.578273 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/thh.php' not found or unable to stat
+[Tue Jan 13 04:04:21.790290 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/inde.php' not found or unable to stat
+[Tue Jan 13 04:04:22.012741 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/gv.php' not found or unable to stat
+[Tue Jan 13 04:04:22.290539 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/admins.php' not found or unable to stat
+[Tue Jan 13 04:04:22.479544 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/.wp-db.php' not found or unable to stat
+[Tue Jan 13 04:04:22.745407 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/wp-configs.php' not found or unable to stat
+[Tue Jan 13 04:04:23.236129 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/wp.php' not found or unable to stat
+[Tue Jan 13 04:04:23.656384 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/main.php' not found or unable to stat
+[Tue Jan 13 04:04:23.925290 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/a1.php' not found or unable to stat
+[Tue Jan 13 04:04:24.117165 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/ff2.php' not found or unable to stat
+[Tue Jan 13 04:04:24.304739 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/dfre.php' not found or unable to stat
+[Tue Jan 13 04:04:24.502113 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/class.1.php' not found or unable to stat
+[Tue Jan 13 04:04:24.729403 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/lala.php' not found or unable to stat
+[Tue Jan 13 04:04:24.917960 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/clawwww.php' not found or unable to stat
+[Tue Jan 13 04:04:25.116120 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/tox.php' not found or unable to stat
+[Tue Jan 13 04:04:25.302452 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/push.php' not found or unable to stat
+[Tue Jan 13 04:04:25.511973 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/aa2.php' not found or unable to stat
+[Tue Jan 13 04:04:25.703980 2026] [:error] [pid 22981] [client 40.113.19.56:1686] script '/var/www/html/dot.php' not found or unable to stat
+[Tue Jan 13 09:07:19.011830 2026] [core:error] [pid 22910] [client 163.5.148.15:33108] AH00126: Invalid URI in request POST /cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh HTTP/1.1
+[Tue Jan 13 09:18:49.559984 2026] [core:error] [pid 14322] [client 45.207.201.221:60148] AH00126: Invalid URI in request POST /cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh HTTP/1.1
+[Tue Jan 13 10:53:12.517316 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/wp-conter.php' not found or unable to stat
+[Tue Jan 13 10:53:14.336501 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/wp-adminmaintmailer.php' not found or unable to stat
+[Tue Jan 13 10:53:16.603925 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/hvoxejcn.php' not found or unable to stat
+[Tue Jan 13 10:53:17.053728 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/rasp.php' not found or unable to stat
+[Tue Jan 13 10:53:17.505421 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/sk-park.php' not found or unable to stat
+[Tue Jan 13 10:53:19.316165 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/wp-settings.php' not found or unable to stat
+[Tue Jan 13 10:53:21.138000 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/index.php' not found or unable to stat
+[Tue Jan 13 10:53:27.044791 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/wp-blog-header.php' not found or unable to stat
+[Tue Jan 13 10:53:27.493943 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/wp-load.php' not found or unable to stat
+[Tue Jan 13 10:53:27.956697 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/wp-config.php' not found or unable to stat
+[Tue Jan 13 10:53:32.946814 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/wp-login.php' not found or unable to stat
+[Tue Jan 13 10:53:41.978659 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/wer.php' not found or unable to stat
+[Tue Jan 13 10:53:42.427890 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/crouter.php' not found or unable to stat
+[Tue Jan 13 10:53:43.327026 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/COPYRIGHT.php' not found or unable to stat
+[Tue Jan 13 10:53:50.129027 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/admin-ajax.php' not found or unable to stat
+[Tue Jan 13 10:53:50.579233 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/themes.php' not found or unable to stat
+[Tue Jan 13 10:53:51.028472 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/profile.php' not found or unable to stat
+[Tue Jan 13 10:53:51.478029 2026] [:error] [pid 27198] [client 4.247.129.71:1558] script '/var/www/html/admin.php' not found or unable to stat
+[Tue Jan 13 16:49:18.717033 2026] [core:error] [pid 594] [client 216.108.237.50:58246] AH00126: Invalid URI in request POST /cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh HTTP/1.1
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('cabelo', '10.132.251.248:...', 'citri', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+[Tue Jan 13 17:35:00.616164 2026] [ssl:error] [pid 595] AH02032: Hostname admin.sistemabelle.com provided via SNI and hostname 104.131.34.108 provided via HTTP are different
+[Tue Jan 13 20:18:10.679573 2026] [access_compat:error] [pid 14709] [client 35.216.144.195:38260] AH01797: client denied by server configuration: /var/www/html/agendafotos/public/server-status
+[Tue Jan 13 23:06:22.060242 2026] [spamhaus:crit] [pid 3246] [client 78.153.140.251:56858] mod_spamhaus: address 251.140.153.78.sbl-xbl.spamhaus.org is blacklisted. Deny connection to 104.131.34.108/
+[Wed Jan 14 05:58:12.804400 2026] [ssl:error] [pid 3247] AH02032: Hostname admin.sistemabelle.com provided via SNI and hostname 104.131.34.108 provided via HTTP are different
+[Wed Jan 14 06:02:40.594029 2026] [core:error] [pid 3247] [client 154.83.14.191:45306] AH00126: Invalid URI in request POST /cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh HTTP/1.1
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', '10.132.251.248:...', 'blink', '00')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Trying to get property of non-object' in /var/www/html/agenda/index.php:79
+Stack trace:
+#0 /var/www/html/agenda/index.php(79): Slim\Slim::handleErrors(8, 'Trying to get p...', '/var/www/html/a...', 79, Array)
+#1 [internal function]: solicitaProfissionalRest('medica', 'undefined', 'undefined', 'undefined')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaProfiss...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+[Wed Jan 14 10:18:09.772744 2026] [:error] [pid 9759] [client 84.17.55.211:48284] mod_qos(045): access denied, invalid request line: can't parse uri, c=84.17.55.211, id=jQqE8FhIBgB-AAEBCAAAAB8mAACApypMJYZnaQAAAAA
+[Wed Jan 14 10:46:29.667729 2026] [core:error] [pid 15448] [client 8.217.123.160:43386] AH00126: Invalid URI in request POST /cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh HTTP/1.1
+[Wed Jan 14 12:26:29.598041 2026] [core:error] [pid 11139] [client 38.175.197.208:38504] AH00126: Invalid URI in request POST /cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh HTTP/1.1
+exception 'ErrorException' with message 'Invalid argument supplied for foreach()' in /var/www/html/agenda/index.php:129
+Stack trace:
+#0 /var/www/html/agenda/index.php(129): Slim\Slim::handleErrors(2, 'Invalid argumen...', '/var/www/html/a...', 129, Array)
+#1 [internal function]: solicitaDataRest('undefined', '002000_CONSULTA', '2026-01-14', 'undefined')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaDataRes...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}
+exception 'ErrorException' with message 'Invalid argument supplied for foreach()' in /var/www/html/agenda/index.php:129
+Stack trace:
+#0 /var/www/html/agenda/index.php(129): Slim\Slim::handleErrors(2, 'Invalid argumen...', '/var/www/html/a...', 129, Array)
+#1 [internal function]: solicitaDataRest('undefined', '002000_CONSULTA', '2026-01-14', 'undefined')
+#2 /var/www/html/Slim/Slim/Route.php(462): call_user_func_array('solicitaDataRes...', Array)
+#3 /var/www/html/Slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+#4 /var/www/html/Slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+#5 /var/www/html/Slim/Slim/Middleware/MethodOverride.php(92): Slim\Middleware\Flash->call()
+#6 /var/www/html/Slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /var/www/html/Slim/Slim/Slim.php(1271): Slim\Middleware\PrettyExceptions->call()
+#8 /var/www/html/agenda/index.php(24): Slim\Slim->run()
+#9 {main}

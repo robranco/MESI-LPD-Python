@@ -1,0 +1,4 @@
+X	Beja		xx	2000 
+Y	Serpa		yy	3000 
+Z	Lisboa		zz	4000 
+K	Beja		kk	1000 

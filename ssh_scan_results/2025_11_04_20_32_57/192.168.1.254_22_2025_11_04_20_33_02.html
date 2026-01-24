@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>SSH Scan Result</title>
+<style>body{font-family:Menlo,Consolas,monospace;background:#0b0b0b;color:#e0e0e0;padding:16px;}h1{color:#64b5f6;} table{border-collapse:collapse;margin-top:12px;width:100%;}th,td{border:1px solid #444;padding:6px;text-align:left;}th{background:#1c1c1c;} .label{font-weight:bold;}</style>
+</head><body>
+<h1>SSH Scan Result for 192.168.1.254:22</h1>
+<p class="label">Banner:</p><pre>SSH-2.0-dropbear_2017.75</pre>
+<p class="label">Version classification:</p><pre>SSH v2</pre>
+<p class="label">Resolved hostname:</p><pre>GEN8</pre>
+<h2>Key Exchange Algorithms</h2>
+<table><tr>
+<th>Name</th><th>Strength</th><th>Reason</th></tr>
+<tr><td>curve25519-sha256@libssh.org</td><td style="color:#2e7d32">strong</td><td>Libssh.org Curve25519 (2014) w/ SHA-256; aligns with NIST &gt;=128-bit recommendations.</td></tr>
+<tr><td>diffie-hellman-group14-sha256</td><td style="color:#2e7d32">strong</td><td>2048-bit MODP Group14 + SHA-256 (2014 refresh) satisfies NIST 112-bit baseline.</td></tr>
+<tr><td>diffie-hellman-group16-sha512</td><td style="color:#2e7d32">strong</td><td>4096-bit MODP Group16 + SHA-512 exceeds NIST Level 1 (112-bit) recommendations.</td></tr>
+</table>
+<h2>Host Key Algorithms</h2>
+<table><tr>
+<th>Name</th><th>Strength</th><th>Reason</th></tr>
+<tr><td>ecdsa-sha2-nistp521</td><td style="color:#2e7d32">strong</td><td>ECDSA P-521 (2009) ~256-bit, aligned with NIST Level 3.</td></tr>
+<tr><td>ssh-rsa</td><td style="color:#c62828">weak</td><td>RSA with SHA-1 (2006); fails NIST guidance due to SHA-1 collisions.</td></tr>
+<tr><td>ssh-dss</td><td style="color:#c62828">weak</td><td>DSA limited to 1024-bit modulus (1994); below NIST minimum 112-bit strength.</td></tr>
+</table>
+<h2>Cipher Algorithms</h2>
+<table><tr>
+<th>Direction</th>
+<th>Name</th><th>Strength</th><th>Reason</th></tr>
+<tr><td>client-&gt;server</td><td>aes256-ctr</td><td style="color:#2e7d32">strong</td><td>AES-256 (2001) in CTR mode; 256-bit key gives long-term strength.</td></tr>
+<tr><td>client-&gt;server</td><td>aes128-ctr</td><td style="color:#2e7d32">strong</td><td>AES-128 (2001) in CTR mode; 128-bit key remains strong when paired with modern MACs.</td></tr>
+<tr><td>client-&gt;server</td><td>aes256-cbc</td><td style="color:#c62828">weak</td><td>AES-256 (2001) in CBC mode; padding oracles and lack of integrity make it risky.</td></tr>
+<tr><td>client-&gt;server</td><td>twofish256-cbc</td><td style="color:#c62828">weak</td><td>Older (pre-2005) design with limited block size or known attacks (e.g., padding or keystream biases).</td></tr>
+<tr><td>client-&gt;server</td><td>aes128-cbc</td><td style="color:#c62828">weak</td><td>AES-128 (2001) in CBC mode; prone to padding-oracle attacks without extra mitigations.</td></tr>
+<tr><td>client-&gt;server</td><td>twofish-cbc</td><td style="color:#c62828">weak</td><td>Twofish (1998) but used in CBC without authentication; better options exist today.</td></tr>
+<tr><td>server-&gt;client</td><td>aes256-ctr</td><td style="color:#2e7d32">strong</td><td>AES-256 (2001) in CTR mode; 256-bit key gives long-term strength.</td></tr>
+<tr><td>server-&gt;client</td><td>aes128-ctr</td><td style="color:#2e7d32">strong</td><td>AES-128 (2001) in CTR mode; 128-bit key remains strong when paired with modern MACs.</td></tr>
+<tr><td>server-&gt;client</td><td>aes256-cbc</td><td style="color:#c62828">weak</td><td>AES-256 (2001) in CBC mode; padding oracles and lack of integrity make it risky.</td></tr>
+<tr><td>server-&gt;client</td><td>twofish256-cbc</td><td style="color:#c62828">weak</td><td>Older (pre-2005) design with limited block size or known attacks (e.g., padding or keystream biases).</td></tr>
+<tr><td>server-&gt;client</td><td>aes128-cbc</td><td style="color:#c62828">weak</td><td>AES-128 (2001) in CBC mode; prone to padding-oracle attacks without extra mitigations.</td></tr>
+<tr><td>server-&gt;client</td><td>twofish-cbc</td><td style="color:#c62828">weak</td><td>Twofish (1998) but used in CBC without authentication; better options exist today.</td></tr>
+</table>
+<h2>MAC Algorithms</h2>
+<h3>Client to Server</h3><pre>hmac-sha2-512 (strong)
+hmac-sha2-256 (strong)</pre>
+<h3>Server to Client</h3><pre>hmac-sha2-512 (strong)
+hmac-sha2-256 (strong)</pre>
+<p>first_kex_packet_follows: False</p>
+<h2>Related CVEs</h2>
+<p>Search query: <strong>dropbear 2017.75 dropbear 2017.75</strong> — <a href="https://nvd.nist.gov/vuln/search/results?query=dropbear%202017.75%20dropbear%202017.75" target="_blank">View more on NVD</a></p>
+<ul>
+<li><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-9078" target="_blank">CVE-2017-9078</a> — The server in Dropbear before 2017.75 might allow post-authentication root remote code execution because of a double free in cleanup of TCP listeners when the -a option is enabled.</li>
+<li><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-9079" target="_blank">CVE-2017-9079</a> — Dropbear before 2017.75 might allow local users to read certain files as root, if the file has the authorized_keys file format with a command= option. This occurs because ~/.ssh/authorized_keys is read with root privileges and symlinks are followed.</li>
+</ul>
+</body></html>

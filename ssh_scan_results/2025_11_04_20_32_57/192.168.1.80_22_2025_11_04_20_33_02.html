@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>SSH Scan Result</title>
+<style>body{font-family:Menlo,Consolas,monospace;background:#0b0b0b;color:#e0e0e0;padding:16px;}h1{color:#64b5f6;} table{border-collapse:collapse;margin-top:12px;width:100%;}th,td{border:1px solid #444;padding:6px;text-align:left;}th{background:#1c1c1c;} .label{font-weight:bold;}</style>
+</head><body>
+<h1>SSH Scan Result for 192.168.1.80:22</h1>
+<p class="label">Banner:</p><pre>SSH-2.0-dropbear_2020.81</pre>
+<p class="label">Version classification:</p><pre>SSH v2</pre>
+<p class="label">Resolved hostname:</p><pre>D2260G</pre>
+<h2>Key Exchange Algorithms</h2>
+<table><tr>
+<th>Name</th><th>Strength</th><th>Reason</th></tr>
+<tr><td>curve25519-sha256</td><td style="color:#2e7d32">strong</td><td>Curve25519 (2014) + SHA-256; ~128-bit strength matching NIST SP 800-57 Level 1 guidance.</td></tr>
+<tr><td>curve25519-sha256@libssh.org</td><td style="color:#2e7d32">strong</td><td>Libssh.org Curve25519 (2014) w/ SHA-256; aligns with NIST &gt;=128-bit recommendations.</td></tr>
+<tr><td>ecdh-sha2-nistp521</td><td style="color:#2e7d32">strong</td><td>ECDH on NIST P-521 (2009) ~256-bit, meeting NIST Level 3 goals.</td></tr>
+<tr><td>ecdh-sha2-nistp384</td><td style="color:#2e7d32">strong</td><td>ECDH on NIST P-384 (2009) ~192-bit, aligning with NIST Level 2 guidance.</td></tr>
+<tr><td>ecdh-sha2-nistp256</td><td style="color:#2e7d32">strong</td><td>ECDH on NIST P-256 (2009) ~128-bit strength as required by NIST for Level 1.</td></tr>
+<tr><td>diffie-hellman-group14-sha256</td><td style="color:#2e7d32">strong</td><td>2048-bit MODP Group14 + SHA-256 (2014 refresh) satisfies NIST 112-bit baseline.</td></tr>
+<tr><td>diffie-hellman-group14-sha1</td><td style="color:#f9a825">intermediate</td><td>2048-bit Group14 (2002) but SHA-1 hashing; marginal vs NIST guidance due to hash aging.</td></tr>
+<tr><td>kexguess2@matt.ucc.asn.au</td><td style="color:#f9a825">intermediate</td><td>At or near NIST minimums but held back by SHA-1 reliance; upgrade recommended.</td></tr>
+</table>
+<h2>Host Key Algorithms</h2>
+<table><tr>
+<th>Name</th><th>Strength</th><th>Reason</th></tr>
+<tr><td>rsa-sha2-256</td><td style="color:#2e7d32">strong</td><td>RSA with SHA-256 (2018); requires &gt;=2048-bit keys to satisfy NIST Level 1.</td></tr>
+<tr><td>ssh-rsa</td><td style="color:#c62828">weak</td><td>RSA with SHA-1 (2006); fails NIST guidance due to SHA-1 collisions.</td></tr>
+</table>
+<h2>Cipher Algorithms</h2>
+<table><tr>
+<th>Direction</th>
+<th>Name</th><th>Strength</th><th>Reason</th></tr>
+<tr><td>client-&gt;server</td><td>chacha20-poly1305@openssh.com</td><td style="color:#2e7d32">strong</td><td>2013/2014 AEAD design with 256-bit key and Poly1305 authenticator; resists known attacks as of 2025.</td></tr>
+<tr><td>client-&gt;server</td><td>aes256-ctr</td><td style="color:#2e7d32">strong</td><td>AES-256 (2001) in CTR mode; 256-bit key gives long-term strength.</td></tr>
+<tr><td>client-&gt;server</td><td>aes128-ctr</td><td style="color:#2e7d32">strong</td><td>AES-128 (2001) in CTR mode; 128-bit key remains strong when paired with modern MACs.</td></tr>
+<tr><td>server-&gt;client</td><td>chacha20-poly1305@openssh.com</td><td style="color:#2e7d32">strong</td><td>2013/2014 AEAD design with 256-bit key and Poly1305 authenticator; resists known attacks as of 2025.</td></tr>
+<tr><td>server-&gt;client</td><td>aes256-ctr</td><td style="color:#2e7d32">strong</td><td>AES-256 (2001) in CTR mode; 256-bit key gives long-term strength.</td></tr>
+<tr><td>server-&gt;client</td><td>aes128-ctr</td><td style="color:#2e7d32">strong</td><td>AES-128 (2001) in CTR mode; 128-bit key remains strong when paired with modern MACs.</td></tr>
+</table>
+<h2>MAC Algorithms</h2>
+<h3>Client to Server</h3><pre>hmac-sha2-256 (strong)
+hmac-sha1 (weak)</pre>
+<h3>Server to Client</h3><pre>hmac-sha2-256 (strong)
+hmac-sha1 (weak)</pre>
+<p>first_kex_packet_follows: False</p>
+<h2>Related CVEs</h2>
+<p>Search query: <strong>dropbear 2020.81 dropbear 2020.81</strong> — <a href="https://nvd.nist.gov/vuln/search/results?query=dropbear%202020.81%20dropbear%202020.81" target="_blank">View more on NVD</a></p>
+<ul>
+<li><a href="https://nvd.nist.gov/vuln/detail/CVE-2021-36369" target="_blank">CVE-2021-36369</a> — An issue was discovered in Dropbear through 2020.81. Due to a non-RFC-compliant check of the available authentication methods in the client-side SSH code, it is possible for an SSH server to change the login process in its favor. This attack can bypass additional security measures such as FIDO2 tokens or SSH-Askpass. Thus, it allows an attacker to abuse a forwarded agent for logging on to another server unnoticed.</li>
+</ul>
+</body></html>

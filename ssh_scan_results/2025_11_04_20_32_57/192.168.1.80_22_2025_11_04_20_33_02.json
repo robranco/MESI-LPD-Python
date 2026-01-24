@@ -1,0 +1,153 @@
+{
+  "host": "192.168.1.80",
+  "port": 22,
+  "banner": "SSH-2.0-dropbear_2020.81",
+  "version": "SSH v2",
+  "supports_ssh2": true,
+  "resolved_hostname": "D2260G",
+  "first_kex_packet_follows": false,
+  "kex_algorithms": [
+    {
+      "name": "curve25519-sha256",
+      "strength": "strong",
+      "reason": "Curve25519 (2014) + SHA-256; ~128-bit strength matching NIST SP 800-57 Level 1 guidance.",
+      "reference": null
+    },
+    {
+      "name": "curve25519-sha256@libssh.org",
+      "strength": "strong",
+      "reason": "Libssh.org Curve25519 (2014) w/ SHA-256; aligns with NIST >=128-bit recommendations.",
+      "reference": null
+    },
+    {
+      "name": "ecdh-sha2-nistp521",
+      "strength": "strong",
+      "reason": "ECDH on NIST P-521 (2009) ~256-bit, meeting NIST Level 3 goals.",
+      "reference": "https://csrc.nist.gov/publications/detail/sp/800-56a/rev-3/final"
+    },
+    {
+      "name": "ecdh-sha2-nistp384",
+      "strength": "strong",
+      "reason": "ECDH on NIST P-384 (2009) ~192-bit, aligning with NIST Level 2 guidance.",
+      "reference": "https://csrc.nist.gov/publications/detail/sp/800-56a/rev-3/final"
+    },
+    {
+      "name": "ecdh-sha2-nistp256",
+      "strength": "strong",
+      "reason": "ECDH on NIST P-256 (2009) ~128-bit strength as required by NIST for Level 1.",
+      "reference": "https://csrc.nist.gov/publications/detail/sp/800-56a/rev-3/final"
+    },
+    {
+      "name": "diffie-hellman-group14-sha256",
+      "strength": "strong",
+      "reason": "2048-bit MODP Group14 + SHA-256 (2014 refresh) satisfies NIST 112-bit baseline.",
+      "reference": "https://csrc.nist.gov/publications/detail/sp/800-56a/rev-3/final"
+    },
+    {
+      "name": "diffie-hellman-group14-sha1",
+      "strength": "intermediate",
+      "reason": "2048-bit Group14 (2002) but SHA-1 hashing; marginal vs NIST guidance due to hash aging.",
+      "reference": "https://csrc.nist.gov/publications/detail/sp/800-131a/rev-2/final"
+    },
+    {
+      "name": "kexguess2@matt.ucc.asn.au",
+      "strength": "intermediate",
+      "reason": "At or near NIST minimums but held back by SHA-1 reliance; upgrade recommended.",
+      "reference": null
+    }
+  ],
+  "host_key_algorithms": [
+    {
+      "name": "rsa-sha2-256",
+      "strength": "strong",
+      "reason": "RSA with SHA-256 (2018); requires >=2048-bit keys to satisfy NIST Level 1.",
+      "reference": "https://csrc.nist.gov/publications/detail/fips/186/5/final"
+    },
+    {
+      "name": "ssh-rsa",
+      "strength": "weak",
+      "reason": "RSA with SHA-1 (2006); fails NIST guidance due to SHA-1 collisions.",
+      "reference": "https://csrc.nist.gov/publications/detail/sp/800-131a/rev-2/final"
+    }
+  ],
+  "ciphers": [
+    {
+      "name": "chacha20-poly1305@openssh.com",
+      "direction": "client->server",
+      "strength": "strong",
+      "reason": "2013/2014 AEAD design with 256-bit key and Poly1305 authenticator; resists known attacks as of 2025.",
+      "reference": null
+    },
+    {
+      "name": "aes256-ctr",
+      "direction": "client->server",
+      "strength": "strong",
+      "reason": "AES-256 (2001) in CTR mode; 256-bit key gives long-term strength.",
+      "reference": "https://csrc.nist.gov/publications/detail/sp/800-38a/final"
+    },
+    {
+      "name": "aes128-ctr",
+      "direction": "client->server",
+      "strength": "strong",
+      "reason": "AES-128 (2001) in CTR mode; 128-bit key remains strong when paired with modern MACs.",
+      "reference": "https://csrc.nist.gov/publications/detail/sp/800-38a/final"
+    },
+    {
+      "name": "chacha20-poly1305@openssh.com",
+      "direction": "server->client",
+      "strength": "strong",
+      "reason": "2013/2014 AEAD design with 256-bit key and Poly1305 authenticator; resists known attacks as of 2025.",
+      "reference": null
+    },
+    {
+      "name": "aes256-ctr",
+      "direction": "server->client",
+      "strength": "strong",
+      "reason": "AES-256 (2001) in CTR mode; 256-bit key gives long-term strength.",
+      "reference": "https://csrc.nist.gov/publications/detail/sp/800-38a/final"
+    },
+    {
+      "name": "aes128-ctr",
+      "direction": "server->client",
+      "strength": "strong",
+      "reason": "AES-128 (2001) in CTR mode; 128-bit key remains strong when paired with modern MACs.",
+      "reference": "https://csrc.nist.gov/publications/detail/sp/800-38a/final"
+    }
+  ],
+  "mac_algorithms": {
+    "client_to_server": [
+      {
+        "name": "hmac-sha2-256",
+        "strength": "strong"
+      },
+      {
+        "name": "hmac-sha1",
+        "strength": "weak"
+      }
+    ],
+    "server_to_client": [
+      {
+        "name": "hmac-sha2-256",
+        "strength": "strong"
+      },
+      {
+        "name": "hmac-sha1",
+        "strength": "weak"
+      }
+    ]
+  },
+  "cves": {
+    "query": "dropbear 2020.81 dropbear 2020.81",
+    "search_url": "https://nvd.nist.gov/vuln/search/results?query=dropbear%202020.81%20dropbear%202020.81",
+    "items": [
+      {
+        "id": "CVE-2021-36369",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-36369",
+        "summary": "An issue was discovered in Dropbear through 2020.81. Due to a non-RFC-compliant check of the available authentication methods in the client-side SSH code, it is possible for an SSH server to change the login process in its favor. This attack can bypass additional security measures such as FIDO2 tokens or SSH-Askpass. Thus, it allows an attacker to abuse a forwarded agent for logging on to another server unnoticed.",
+        "severity": "HIGH",
+        "score": 7.5
+      }
+    ]
+  },
+  "duration_seconds": 2.294258699985221
+}
