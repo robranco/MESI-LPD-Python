@@ -1,7 +1,7 @@
-awk '{for(i=1;i<=NF;i++){f=$i;gsub(/[\[\]\"\047\050\051,;]|SRC=|DST=|MAC=|client/,"",f);dc=split(f,d,".");cc=split(f,c,":");if(dc==4){sub(/:[0-9]+$/,"",f);if(f~/^[0-9.]+$/)print f}else if(cc>=2&&cc<=9){if(f~/^[0-9a-fA-F:]+$/){if(length(f)>8||f=="::1")print f}}}}'
+#awk '{for(i=1;i<=NF;i++){f=$i;gsub(/[\[\]\"\047\050\051,;]|SRC=|DST=|MAC=|client/,"",f);dc=split(f,d,".");cc=split(f,c,":");if(dc==4){sub(/:[0-9]+$/,"",f);if(f~/^[0-9.]+$/)print f}else if(cc>=2&&cc<=9){if(f~/^[0-9a-fA-F:]+$/){if(length(f)>8||f=="::1")print f}}}}'
 
 
-awk '
+#awk '
   # Access log: [IP]:PORT (IPv4 or IPv6)
   match($0, /^\[([0-9A-Fa-f:.]+)\]:[0-9]+/, a) { print a[1]; next }
 
@@ -24,5 +24,5 @@ awk '
 
   # UFW: "SRC=IP" (IPv4/IPv6)
   match($0, /SRC=([0-9A-Fa-f:.]+)/, g) { print g[1]; next }
-'
+#'
 

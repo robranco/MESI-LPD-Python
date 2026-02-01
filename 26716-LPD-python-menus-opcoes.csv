@@ -2,6 +2,6 @@ numero,texto,arquivo
 1,Port(s) scan em alvo(s),26716-LPD-python-port(s)-scan-target(s).py
 2,UDP Flood alvo,26716-LPD-python-UDP-flood-target.py
 3,SYN Flood alvo,26716-LPD-python-SYN-flood-target.py
-4,,
+4,LOGs analyzer,26716-LPD-python-LOGs-http-ssh-e-ufw.py
 5,,
 6,Cliente de port knocking,26716-LPD-python-port-knocking-client.py
