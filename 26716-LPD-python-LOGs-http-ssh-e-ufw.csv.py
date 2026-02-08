@@ -19,6 +19,7 @@ CAMINHO_CITY = os.path.join(BASE_MAXMIND, "GeoLite2-City.mmdb")
 CAMINHO_COUNTRY = os.path.join(BASE_MAXMIND, "GeoLite2-Country.mmdb")
 AWK_SCRIPT = _caminho_relativo("regular-expression-awk-ip-address-and-timestamp.awk")
 LOG_PADRAO = "/var/log/apache2/access.log"
+PASTA_RELATORIOS = _caminho_relativo("reports")
 
 
 def para_iso8601(texto):
@@ -206,7 +207,8 @@ def main():
     else:
         componente_caminho = diretorio_relativo.replace(os.sep, "_")
     nome_saida = f"26716-{timestamp_execucao}-{componente_caminho}-{nome_log}.csv"
-    caminho_saida = os.path.join(os.getcwd(), nome_saida)
+    os.makedirs(PASTA_RELATORIOS, exist_ok=True)
+    caminho_saida = os.path.join(PASTA_RELATORIOS, nome_saida)
 
     try:
         with open(caminho_saida, "w", newline="", encoding="utf-8") as ficheiro_csv:

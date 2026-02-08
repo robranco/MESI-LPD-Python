@@ -30,6 +30,7 @@ AWK_SCRIPT = _caminho_relativo("regular-expression-awk-ip-address-and-timestamp.
 LOG_PADRAO = "/var/log/apache2/access.log"
 LOGO_IPBEJA = _caminho_relativo("IPbeja_horizontal.png")
 LOGO_ESTIG = _caminho_relativo("IPBeja_estig_horizontal.png")
+PASTA_RELATORIOS = _caminho_relativo("reports")
 
 FONTE_PADRAO = "Helvetica"
 FONTE_PADRAO_NEGRITO = "Helvetica-Bold"
@@ -348,7 +349,8 @@ def main():
     else:
         componente = diretorio_relativo.replace(os.sep, "_")
     nome_saida = f"26716-{timestamp_execucao}-{componente}-{nome_log}.pdf"
-    caminho_saida = os.path.join(os.getcwd(), nome_saida)
+    os.makedirs(PASTA_RELATORIOS, exist_ok=True)
+    caminho_saida = os.path.join(PASTA_RELATORIOS, nome_saida)
 
     timestamps_ordenados = sorted(item["timestamp"] for item in registros)
     primeiro_timestamp = timestamps_ordenados[0]

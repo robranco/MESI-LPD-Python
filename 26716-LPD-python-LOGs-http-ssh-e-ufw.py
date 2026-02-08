@@ -9,6 +9,19 @@ from datetime import datetime
 import geoip2.database
 from geoip2.errors import AddressNotFoundError
 
+
+class Tee:
+    def __init__(self, *destinos):
+        self.destinos = destinos
+
+    def write(self, dados):
+        for destino in self.destinos:
+            destino.write(dados)
+
+    def flush(self):
+        for destino in self.destinos:
+            destino.flush()
+
 # Bases ficam numa subpasta "maxmind" ao lado do script
 def _caminho_relativo(*partes):
     return os.path.join(os.getcwd(), *partes)
@@ -18,6 +31,7 @@ CAMINHO_CITY = os.path.join(BASE_MAXMIND, "GeoLite2-City.mmdb")
 CAMINHO_COUNTRY = os.path.join(BASE_MAXMIND, "GeoLite2-Country.mmdb")
 AWK_SCRIPT = _caminho_relativo("regular-expression-awk-ip-address-and-timestamp.awk")
 LOG_PADRAO = "/var/log/apache2/access.log"
+PASTA_RELATORIOS = _caminho_relativo("reports")
 
 
 def para_iso8601(texto):
@@ -166,64 +180,78 @@ def main():
         print("Ficheiro nao encontrado. Verifique o caminho.")
         sys.exit(1)
 
-    try:
-        total_linhas = contar_linhas(caminho_log)
-    except Exception as erro:
-        print(erro)
-        sys.exit(1)
+    os.makedirs(PASTA_RELATORIOS, exist_ok=True)
+    nome_base = os.path.basename(caminho_log) or "log"
+    caminho_relatorio = os.path.join(PASTA_RELATORIOS, f"{nome_base}_relatorio_http_ssh_ufw.txt")
+
+    stdout_original = sys.stdout
+    relatorio = open(caminho_relatorio, "w", encoding="utf-8")
+    sys.stdout = Tee(sys.stdout, relatorio)
 
     try:
-        leitor_city = geoip2.database.Reader(CAMINHO_CITY)
-        leitor_country = geoip2.database.Reader(CAMINHO_COUNTRY)
-    except FileNotFoundError:
-        print("Base GeoLite2 nao encontrada na pasta maxmind.")
-        sys.exit(1)
-    except Exception as erro:
-        print(f"Erro ao abrir base GeoLite2: {erro}")
-        sys.exit(1)
-
-    registos_por_pais = {}
-    linhas_validas = 0
-
-    with leitor_city, leitor_country:
         try:
-            entradas = executar_awk(caminho_log)
+            total_linhas = contar_linhas(caminho_log)
         except Exception as erro:
             print(erro)
             sys.exit(1)
 
-        for ip, timestamp_bruto in entradas:
-            if not ip or not timestamp_bruto:
-                continue
-            linhas_validas += 1
-            timestamp = para_iso8601(timestamp_bruto)
-            pais, cidade = obter_localizacao(ip, leitor_city, leitor_country)
+        try:
+            leitor_city = geoip2.database.Reader(CAMINHO_CITY)
+            leitor_country = geoip2.database.Reader(CAMINHO_COUNTRY)
+        except FileNotFoundError:
+            print("Base GeoLite2 nao encontrada na pasta maxmind.")
+            sys.exit(1)
+        except Exception as erro:
+            print(f"Erro ao abrir base GeoLite2: {erro}")
+            sys.exit(1)
 
-            if pais not in registos_por_pais:
-                registos_por_pais[pais] = []
-            registos_por_pais[pais].append({"ip": ip, "timestamp": timestamp, "cidade": cidade})
+        registos_por_pais = {}
+        linhas_validas = 0
 
-    print("\nResumo do processamento:")
-    print(f"Linhas no ficheiro: {total_linhas}")
-    print(f"Registos extraidos via AWK: {linhas_validas}")
-    if linhas_validas <= total_linhas:
-        print(f"Linhas sem correspondencia: {total_linhas - linhas_validas}")
-    else:
-        print("Nota: UFW pode gerar mais de um registo por linha (SRC/DST).")
+        with leitor_city, leitor_country:
+            try:
+                entradas = executar_awk(caminho_log)
+            except Exception as erro:
+                print(erro)
+                sys.exit(1)
 
-    if not registos_por_pais:
-        print("Nenhum acesso identificado no log.")
-        return
+            for ip, timestamp_bruto in entradas:
+                if not ip or not timestamp_bruto:
+                    continue
+                linhas_validas += 1
+                timestamp = para_iso8601(timestamp_bruto)
+                pais, cidade = obter_localizacao(ip, leitor_city, leitor_country)
 
-    print("\nOrigens por pais:")
-    for pais in sorted(registos_por_pais, key=lambda chave: len(registos_por_pais[chave]), reverse=True):
-        acessos = registos_por_pais[pais]
-        print(f"\nPais: {pais} | Total: {len(acessos)}")
-        for acesso in acessos:
-            timestamp = acesso["timestamp"]
-            ip = acesso["ip"]
-            cidade = acesso["cidade"]
-            print(f" - {timestamp} | {ip} | {cidade}")
+                if pais not in registos_por_pais:
+                    registos_por_pais[pais] = []
+                registos_por_pais[pais].append({"ip": ip, "timestamp": timestamp, "cidade": cidade})
+
+        print("\nResumo do processamento:")
+        print(f"Linhas no ficheiro: {total_linhas}")
+        print(f"Registos extraidos via AWK: {linhas_validas}")
+        if linhas_validas <= total_linhas:
+            print(f"Linhas sem correspondencia: {total_linhas - linhas_validas}")
+        else:
+            print("Nota: UFW pode gerar mais de um registo por linha (SRC/DST).")
+
+        if not registos_por_pais:
+            print("Nenhum acesso identificado no log.")
+            return
+
+        print("\nOrigens por pais:")
+        for pais in sorted(registos_por_pais, key=lambda chave: len(registos_por_pais[chave]), reverse=True):
+            acessos = registos_por_pais[pais]
+            print(f"\nPais: {pais} | Total: {len(acessos)}")
+            for acesso in acessos:
+                timestamp = acesso["timestamp"]
+                ip = acesso["ip"]
+                cidade = acesso["cidade"]
+                print(f" - {timestamp} | {ip} | {cidade}")
+
+        print(f"\nRelatorio salvo em: {caminho_relatorio}")
+    finally:
+        sys.stdout = stdout_original
+        relatorio.close()
 
 
 if __name__ == "__main__":

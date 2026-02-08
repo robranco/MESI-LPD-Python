@@ -14,11 +14,13 @@ BASE_MAXMIND = os.path.join(os.getcwd(), "maxmind")
 CAMINHO_CITY = os.path.join(BASE_MAXMIND, "GeoLite2-City.mmdb")
 CAMINHO_COUNTRY = os.path.join(BASE_MAXMIND, "GeoLite2-Country.mmdb")
 LOG_PADRAO = "/var/log/apache2/access.log"
+PASTA_RELATORIOS = os.path.join(os.getcwd(), "reports")
 
 # Regras simples para extrair timestamp e IPs
 PADRAO_HTTP_TIMESTAMP = re.compile(r"\[(?P<http>\d{1,2}/[A-Za-z]{3}/\d{4}:[^\]]+)\]")
 PADRAO_SYSLOG_TIMESTAMP = re.compile(r"^(?P<syslog>[A-Za-z]{3}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})")
 PADRAO_TIMESTAMP = re.compile(r"\[(?P<timestamp>[^\]]+)\]")
+
 def para_iso8601(texto):
     meses = {
         "Jan": 1,
@@ -70,6 +72,8 @@ def para_iso8601(texto):
             return texto
 
     return texto
+
+
 PADROES_DIRETOS = [
     re.compile(r"^\[([0-9A-Fa-f:.]+)\]:[0-9]+"),
     re.compile(r"\[client ([0-9A-Fa-f:.]+)\]"),
@@ -225,6 +229,11 @@ def main():
         print("Ficheiro nao encontrado. Verifique o caminho.")
         sys.exit(1)
 
+    os.makedirs(PASTA_RELATORIOS, exist_ok=True)
+    nome_base = os.path.basename(caminho_log) or "log"
+    caminho_relatorio = os.path.join(PASTA_RELATORIOS, f"{nome_base}_relatorio_http.txt")
+    linhas_saida = []
+
     try:
         leitor_city = geoip2.database.Reader(CAMINHO_CITY)
         leitor_country = geoip2.database.Reader(CAMINHO_COUNTRY)
@@ -257,23 +266,44 @@ def main():
             linhas_validas += 1
 
     print("\nResumo do processamento:")
+    linhas_saida.append("")
+    linhas_saida.append("Resumo do processamento:")
     print(f"Linhas totais: {total_linhas}")
+    linhas_saida.append(f"Linhas totais: {total_linhas}")
     print(f"Linhas validas: {linhas_validas}")
+    linhas_saida.append(f"Linhas validas: {linhas_validas}")
     print(f"Linhas ignoradas: {linhas_ignoradas}")
+    linhas_saida.append(f"Linhas ignoradas: {linhas_ignoradas}")
 
     if not registos_por_pais:
-        print("Nenhum acesso identificado no log.")
+        mensagem = "Nenhum acesso identificado no log."
+        print(mensagem)
+        linhas_saida.append(mensagem)
+        with open(caminho_relatorio, "w", encoding="utf-8") as ficheiro:
+            ficheiro.write("\n".join(linhas_saida))
+        print(f"\nRelatorio salvo em: {caminho_relatorio}")
         return
 
     print("\nOrigens por pais:")
+    linhas_saida.append("")
+    linhas_saida.append("Origens por pais:")
     for pais in sorted(registos_por_pais, key=lambda chave: len(registos_por_pais[chave]), reverse=True):
         acessos = registos_por_pais[pais]
         print(f"\nPais: {pais} | Total: {len(acessos)}")
+        linhas_saida.append("")
+        linhas_saida.append(f"Pais: {pais} | Total: {len(acessos)}")
         for acesso in acessos:
             timestamp = acesso["timestamp"]
             ip = acesso["ip"]
             cidade = acesso["cidade"]
-            print(f" - {timestamp} | {ip} | {cidade}")
+            linha = f" - {timestamp} | {ip} | {cidade}"
+            print(linha)
+            linhas_saida.append(linha)
+
+    with open(caminho_relatorio, "w", encoding="utf-8") as ficheiro:
+        ficheiro.write("\n".join(linhas_saida))
+
+    print(f"\nRelatorio salvo em: {caminho_relatorio}")
 
 
 if __name__ == "__main__":
