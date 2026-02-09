@@ -3,3 +3,10 @@ baixados
 reports
 *.sqlite
 not-used
+*.ppt
+*.pptx
+*.doc
+*.docx
+.wslvenv
+*.pdf
+*.txt
