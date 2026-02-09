@@ -1,2 +1,6 @@
-# ssh-scanner runtime requirements
-# All dependencies are provided by the Python standard library.
+geoip2
+folium
+reportlab
+scapy
+pycryptodome
+matplotlib

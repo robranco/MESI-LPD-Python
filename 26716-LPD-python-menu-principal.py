@@ -23,6 +23,12 @@ def ler_opcoes():
 
 
 def mostrar_menu(opcoes):
+	print(
+		"\nInstrucoes:\n"
+		"python3 -m venv .venv\n"
+		"source .venv/bin/activate\n"
+		"pip install -r requirements.txt.\n"
+	)
 	while True:
 		print("\nMenu principal")
 		for item in opcoes:

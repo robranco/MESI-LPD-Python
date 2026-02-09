@@ -1,5 +1,5 @@
 .venv
 baixados
 reports
-
 *.sqlite
+not-used
