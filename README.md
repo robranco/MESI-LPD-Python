@@ -2,6 +2,10 @@
 
 Este repositório reúne os scripts acionados pelos menus `26716-LPD-python-menu-principal.py` e `26716-LPD-python-menu-principal-auth.py`. O objetivo deste documento é permitir que qualquer pessoa que clone o projeto configure rapidamente o ambiente, entenda o propósito de cada opção e execute os utilitários sem adivinhações.
 
+## Atualizações recentes (2026-02-10)
+- Todos os utilitários agora expõem uma função `main(argv=None)` e só executam quando chamados por `if __name__ == "__main__"`. Isso permite importar os módulos em documentação Sphinx ou em testes automatizados sem disparar prompts inesperados.
+- As ferramentas que solicitam caminhos de log ou parâmetros simples aceitam esses valores como argumentos de linha de comando. Basta passar o caminho (ou host/usuário, no caso do port knocking) após o nome do script para pular a etapa interativa.
+
 ## Ambiente suportado
 - Os scripts foram validados em Linux e em WSL (Windows Subsystem for Linux). Python para Windows **pode** funcionar, mas não há suporte oficial.
 - Todos os comandos abaixo presumem um shell Bash dentro do Linux/WSL.
@@ -84,56 +88,57 @@ Cada item abaixo descreve o mesmo número da coluna `numero` do CSV do menu.
 ### 5. 26716-LPD-python-LOGs-http-ssh-e-ufw.py
 - **Objetivo:** resumir origens de acessos HTTP/SSH/UFW agrupadas por país.
 - **Uso:** informe o caminho do log (padrão `/var/log/apache2/access.log`). O script chama o AWK auxiliar, resolve país/cidade via GeoLite e gera `reports/<log>_relatorio_http_ssh_ufw.txt`.
+- **Uso:** informe o caminho do log (padrão `/var/log/apache2/access.log`) ou passe-o diretamente na linha de comando (`python 26716-LPD-python-LOGs-http-ssh-e-ufw.py /var/log/apache2/access.log`). O script chama o AWK auxiliar, resolve país/cidade via GeoLite e gera `reports/<log>_relatorio_http_ssh_ufw.txt`.
 - **Dependências específicas:** `geoip2`, AWK auxiliar e bases `GeoLite2`.
 
 ### 6. 26716-LPD-python-LOGs-http-ssh-e-ufw.csv.py
 - **Objetivo:** mesma extração da opção 5, mas salva um CSV cronológico.
-- **Uso:** após informar o log, o script gera arquivos `reports/26716-<timestamp>-<origem>-<nome>.csv` prontos para planilhas.
+- **Uso:** após informar o log (ou fornecê-lo como primeiro argumento do comando), o script gera arquivos `reports/26716-<timestamp>-<origem>-<nome>.csv` prontos para planilhas.
 - **Dependências específicas:** `geoip2`, AWK e bases `GeoLite2`.
 
 ### 7. 26716-LPD-python-LOGs-http-ssh-e-ufw.pdf.py
 - **Objetivo:** criar um relatório PDF com contagens por país/cidade/IP, incluindo logos institucionais.
-- **Uso:** informe o arquivo de log. O programa calcula métricas, adiciona logos `IPbeja_horizontal.png` e `IPBeja_estig_horizontal.png` (se presentes) e grava `reports/26716-...pdf`.
+- **Uso:** informe o arquivo de log (também aceito como primeiro argumento). O programa calcula métricas, adiciona logos `IPbeja_horizontal.png` e `IPBeja_estig_horizontal.png` (se presentes) e grava `reports/26716-...pdf`.
 - **Dependências específicas:** `geoip2`, `reportlab`, AWK auxiliar, bases `GeoLite2` e os arquivos de logo.
 
 ### 8. 26716-LPD-python-LOGs-http-ssh-e-ufw.SQLite.py
 - **Objetivo:** carregar IP/timestamp/cidade/país em uma base SQLite simples.
-- **Uso:** semelhante às opções anteriores, porém gera `reports/26716-...sqlite` contendo uma tabela `acessos` limpa a cada execução.
+- **Uso:** semelhante às opções anteriores, podendo receber o log via argumento, porém gera `reports/26716-...sqlite` contendo uma tabela `acessos` limpa a cada execução.
 - **Dependências específicas:** `geoip2`, AWK auxiliar, bases `GeoLite2` e `sqlite3` (padrão).
 
 ### 9. 26716-LPD-python-port-knocking-client.py
 - **Objetivo:** enviar a sequência de knock nas portas 4444, 3333 e 2222 para liberar SSH em firewalls que exigem esse fluxo.
-- **Uso:** indique o host (padrão 192.168.1.105) e o usuário. O script usa `nc` para abrir/fechar rapidamente cada porta e, ao final, orienta a executar `ssh usuario@host`.
+- **Uso:** indique o host (padrão 192.168.1.105) e o usuário, seja respondendo aos prompts ou fornecendo `python 26716-LPD-python-port-knocking-client.py <host> <usuario>`. O script usa `nc` para abrir/fechar rapidamente cada porta e, ao final, orienta a executar `ssh usuario@host`.
 - **Dependências específicas:** comando `nc` (netcat-openbsd).
 
 ### 10. 26716-LPD-python-LOGs-http-ssh-e-ufw-folium-country-map.py
 - **Objetivo:** gerar CSV e mapa HTML (Folium) mostrando volume de acessos por país.
-- **Uso:** informe o log, valide o resumo no terminal e abra `reports/<log>_acessos_por_pais.html` para visualizar o mapa. Também é salvo `reports/<log>_acessos_por_pais.csv`.
+- **Uso:** informe o log (ou passe-o como primeiro argumento), valide o resumo no terminal e abra `reports/<log>_acessos_por_pais.html` para visualizar o mapa. Também é salvo `reports/<log>_acessos_por_pais.csv`.
 - **Dependências específicas:** `geoip2`, `folium`, AWK auxiliar, bases `GeoLite2`.
 
 ### 11. 26716-LPD-python-LOGs-http-ssh-e-ufw-folium-city-map.py
 - **Objetivo:** mapa HTML por cidade, adicionando contagens e CSV completos.
-- **Uso:** semelhante à opção 10; gera `reports/<log>_acessos_por_cidade.csv` e `reports/<log>_acessos_por_cidade.html` com marcadores médios.
+- **Uso:** semelhante à opção 10; você pode fornecer o log por argumento e o script gera `reports/<log>_acessos_por_cidade.csv` e `reports/<log>_acessos_por_cidade.html` com marcadores médios.
 - **Dependências específicas:** `geoip2`, `folium`, AWK auxiliar, bases `GeoLite2`.
 
 ### 12. 26716-LPD-python-LOGs-http-ssh-e-ufw-stats-IPv4-IPv6.py
 - **Objetivo:** sumarizar logs destacando totais IPv4/IPv6, percentuais, primeiros/últimos eventos e proporção de IPs únicos.
-- **Uso:** informe o log. O script cria um relatório texto (`reports/<log>_relatorio_http_ssh_ufw-stats-IPv4-IPv6.txt`) e um HTML com quatro gráficos desenhados em `<canvas>`.
+- **Uso:** informe o log (ou forneça-o pelo primeiro argumento). O script cria um relatório texto (`reports/<log>_relatorio_http_ssh_ufw-stats-IPv4-IPv6.txt`) e um HTML com quatro gráficos desenhados em `<canvas>`.
 - **Dependências específicas:** somente bibliotecas padrão (`ipaddress`, `json` etc.) além do AWK auxiliar.
 
 ### 13. 26716-LPD-python-LOGs-http-ssh-e-ufw.SQLite-cifrado.py
 - **Objetivo:** gravar os campos de log em SQLite com cifragem AES-256 (modo GCM) por campo.
-- **Uso:** o script solicita a senha da cifragem antes de perguntar pelo log. Gera `reports/26716-...-cifrado-AES-256.sqlite`. Use a mesma senha depois ao decifrar.
+- **Uso:** o script solicita a senha da cifragem antes de perguntar pelo log (que também pode ser informado como argumento). Gera `reports/26716-...-cifrado-AES-256.sqlite`. Use a mesma senha depois ao decifrar.
 - **Dependências específicas:** `geoip2`, `pycryptodome`, AWK auxiliar, bases `GeoLite2`.
 
 ### 14. 26716-LPD-python-LOGs-http-ssh-e-ufw.SQLite-decifrar.py
 - **Objetivo:** ler a base cifrada da opção 13 e exibir os registros em texto puro.
-- **Uso:** informe o caminho do SQLite cifrado e digite a senha utilizada na exportação. Os valores são mostrados no terminal.
+- **Uso:** informe o caminho do SQLite cifrado (ou passe-o como primeiro argumento) e digite a senha utilizada na exportação. Os valores são mostrados no terminal.
 - **Dependências específicas:** `pycryptodome`, `sqlite3`.
 
 ### 15. 26716-LPD-python-LOGs-http-ssh-e-ufw-stats-IPv4-IPv6-matplotlib.py
 - **Objetivo:** mesma análise da opção 12, porém os gráficos são gerados pelo Matplotlib e incorporados como imagens base64 no HTML (`-matplotlib.html`).
-- **Uso:** idêntico à opção 12; o relatório texto é compartilhado e o HTML fica em `reports/<log>_relatorio_http_ssh_ufw-stats-IPv4-IPv6-matplotlib.html`.
+- **Uso:** idêntico à opção 12; você pode passar o log pela CLI, o relatório texto é compartilhado e o HTML fica em `reports/<log>_relatorio_http_ssh_ufw-stats-IPv4-IPv6-matplotlib.html`.
 - **Dependências específicas:** `matplotlib` além do AWK auxiliar.
 
 ## Organização dos arquivos
