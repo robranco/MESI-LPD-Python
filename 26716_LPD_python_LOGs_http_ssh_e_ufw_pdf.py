@@ -132,7 +132,7 @@ def _obter_metadata(leitor):
         return None
 
 
-def obter_argumentos():
+def obter_argumentos(argv=None):
     parser = argparse.ArgumentParser(
         description="Gera um relatorio PDF das origens de acessos HTTP/SSH/UFW"
     )
@@ -149,7 +149,7 @@ def obter_argumentos():
         nargs="?",
         help="(Opcional) caminho do arquivo (compatibilidade)",
     )
-    return parser.parse_args()
+    return parser.parse_args(argv)
 
 
 def para_iso8601(texto):
@@ -267,8 +267,8 @@ def obter_localizacao(ip, leitor_city, leitor_country):
     return pais, cidade
 
 
-def main():
-    args = obter_argumentos()
+def main(argv=None):
+    args = obter_argumentos(argv)
 
     if args.logfile:
         caminho_log = args.logfile.strip()
@@ -607,4 +607,4 @@ def desenhar_cabecalho(canvas, doc, titulo, logo_esquerda, logo_direita):
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

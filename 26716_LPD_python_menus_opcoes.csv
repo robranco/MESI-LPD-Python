@@ -1,0 +1,16 @@
+numero,texto,arquivo
+ 1,Port(s) scan em alvo(s),26716_LPD_python_ports_scan_targets.py
+ 2,UDP Flood alvo,26716_LPD_python_UDP_flood_target.py
+ 3,SYN Flood alvo,26716_LPD_python_SYN_flood_target.py
+ 4,LOGS buscar log remoto,26716_LPD_python_LOGs_buscar_log_remoto.py 
+ 5,LOGs analyzer,26716_LPD_python_LOGs_http_ssh_e_ufw.py
+ 6,LOGs analyzer .CSV,26716_LPD_python_LOGs_http_ssh_e_ufw_csv.py
+ 7,LOGs analyzer .pdf,26716_LPD_python_LOGs_http_ssh_e_ufw_pdf.py
+ 8,LOGs analyzer .SQLite,26716_LPD_python_LOGs_http_ssh_e_ufw_SQLite.py
+ 9,Cliente de port knocking,26716_LPD_python_port_knocking_client.py
+10,LOGs analyzer by Country .html MAP,26716_LPD_python_LOGs_http_ssh_e_ufw_folium_country_map.py
+11,LOGs analyzer by City .html MAP,26716_LPD_python_LOGs_http_ssh_e_ufw_folium_city_map.py
+12,LOG stats IPv4 vs IPv6,26716_LPD_python_LOGs_http_ssh_e_ufw_stats_IPv4_IPv6.py
+13,LOGs analyzer .SQLite cifrado,26716_LPD_python_LOGs_http_ssh_e_ufw_SQLite_cifrado.py
+14,LOGs analyzer .SQLite decifrar,26716_LPD_python_LOGs_http_ssh_e_ufw_SQLite_decifrar.py
+15,LOG stats IPv4 vs IPv6 matplotlib,26716_LPD_python_LOGs_http_ssh_e_ufw_stats_IPv4_IPv6_matplotlib.py

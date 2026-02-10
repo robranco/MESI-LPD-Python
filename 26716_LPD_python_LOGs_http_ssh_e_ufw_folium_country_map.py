@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Script simples: lê logs, salva CSV e cria mapa por cidade."""
+"""Script simples: lê logs, salva CSV e cria mapa por país."""
 
 import csv
 import os
@@ -21,6 +21,16 @@ CAMINHO_COUNTRY = os.path.join(BASE_MAXMIND, "GeoLite2-Country.mmdb")
 AWK_SCRIPT = _caminho_relativo("regular-expression-awk-ip-address-and-timestamp.awk")
 LOG_PADRAO = "/var/log/apache2/access.log"
 PASTA_RELATORIOS = _caminho_relativo("reports")
+
+
+def obter_caminho_log(argv=None):
+    argumentos = argv if argv is not None else sys.argv[1:]
+    if argumentos:
+        return argumentos[0].strip()
+
+    return input(
+        "Informe o caminho completo do log (ex: /var/log/apache2/access.log): "
+    ).strip()
 
 
 def para_iso8601(texto):
@@ -76,7 +86,7 @@ def para_iso8601(texto):
 
 
 def executar_awk(caminho_log):
-    """Chama awk para puxar timestamp e IP."""
+    """Chama AWK para puxar timestamp e IP de cada linha."""
     if not os.path.isfile(AWK_SCRIPT):
         raise FileNotFoundError("Script AWK nao encontrado.")
 
@@ -84,7 +94,7 @@ def executar_awk(caminho_log):
     try:
         resultado = subprocess.run(comando, capture_output=True, text=True, check=True)
     except FileNotFoundError as erro:
-        raise FileNotFoundError("awk nao foi encontrado no PATH.") from erro
+        raise FileNotFoundError("awk nao está no PATH.") from erro
     except subprocess.CalledProcessError as erro:
         mensagem = erro.stderr.strip() or erro.stdout.strip() or str(erro)
         raise RuntimeError(f"Falha ao executar awk: {mensagem}") from erro
@@ -101,11 +111,10 @@ def executar_awk(caminho_log):
 
 
 def obter_localizacao(ip, leitor_city, leitor_country):
-    """Tenta devolver pais, cidade e coordenadas do IP."""
+    """Retorna pais e coordenadas aproximadas do IP."""
     pais = "Desconhecido"
-    cidade = "Sem cidade"
-    latitude = None
-    longitude = None
+    lat_ip = None
+    lon_ip = None
 
     try:
         resposta_city = leitor_city.city(ip)
@@ -113,12 +122,10 @@ def obter_localizacao(ip, leitor_city, leitor_country):
             pais = resposta_city.country.name
         elif resposta_city.country.iso_code:
             pais = resposta_city.country.iso_code
-        if resposta_city.city and resposta_city.city.name:
-            cidade = resposta_city.city.name
         if resposta_city.location:
-            latitude = resposta_city.location.latitude
-            longitude = resposta_city.location.longitude
-        return pais, cidade, latitude, longitude
+            lat_ip = resposta_city.location.latitude
+            lon_ip = resposta_city.location.longitude
+        return pais, lat_ip, lon_ip
     except AddressNotFoundError:
         pass
     except Exception:
@@ -130,12 +137,15 @@ def obter_localizacao(ip, leitor_city, leitor_country):
             pais = resposta_country.country.name
         elif resposta_country.country.iso_code:
             pais = resposta_country.country.iso_code
+        if resposta_country.location:
+            lat_ip = resposta_country.location.latitude
+            lon_ip = resposta_country.location.longitude
     except AddressNotFoundError:
         pass
     except Exception:
         pass
 
-    return pais, cidade, latitude, longitude
+    return pais, lat_ip, lon_ip
 
 
 def contar_linhas(caminho_log):
@@ -150,15 +160,10 @@ def garantir_pasta_relatorios():
     os.makedirs(PASTA_RELATORIOS, exist_ok=True)
 
 
-def main():
-    print("=== Mapa simples de acessos por cidade ===")
+def main(argv=None):
+    print("=== Analise simples de logs HTTP/SSH/UFW ===")
 
-    if len(sys.argv) > 1:
-        caminho_log = sys.argv[1].strip()
-    else:
-        caminho_log = input(
-            "Informe o caminho do log (ex: /var/log/apache2/access.log): "
-        ).strip()
+    caminho_log = obter_caminho_log(argv)
 
     if not caminho_log:
         caminho_log = LOG_PADRAO
@@ -187,7 +192,6 @@ def main():
 
     registos_por_pais = {}
     dados_csv = []
-    contagem_por_cidade = {}
     linhas_validas = 0
 
     with leitor_city, leitor_country:
@@ -202,95 +206,70 @@ def main():
                 continue
             linhas_validas += 1
             timestamp = para_iso8601(timestamp_bruto)
-            pais, cidade, latitude, longitude = obter_localizacao(ip, leitor_city, leitor_country)
+            pais, lat_ip, lon_ip = obter_localizacao(ip, leitor_city, leitor_country)
 
             if pais not in registos_por_pais:
-                registos_por_pais[pais] = []
-            registos_por_pais[pais].append({
-                "ip": ip,
-                "timestamp": timestamp,
-                "cidade": cidade,
-                "latitude": latitude,
-                "longitude": longitude,
-            })
+                registos_por_pais[pais] = {
+                    "total": 0,
+                    "coordenadas_ip": [],
+                }
+            info_pais = registos_por_pais[pais]
+            info_pais["total"] += 1
+            if lat_ip is not None and lon_ip is not None:
+                info_pais["coordenadas_ip"].append((lat_ip, lon_ip))
 
             dados_csv.append({
                 "timestamp": timestamp,
                 "ip": ip,
                 "pais": pais,
-                "cidade": cidade,
-                "latitude": latitude,
-                "longitude": longitude,
+                "latitude": lat_ip,
+                "longitude": lon_ip,
             })
 
-            if latitude is not None and longitude is not None:
-                chave = (cidade or "Sem cidade", pais)
-                if chave not in contagem_por_cidade:
-                    contagem_por_cidade[chave] = {
-                        "total": 0,
-                        "latitudes": [],
-                        "longitudes": [],
-                    }
-                info = contagem_por_cidade[chave]
-                info["total"] += 1
-                info["latitudes"].append(latitude)
-                info["longitudes"].append(longitude)
-
-    print("\nResumo do processamento:")
-    print(f"Linhas no ficheiro: {total_linhas}")
-    print(f"Registos extraidos via AWK: {linhas_validas}")
-    if linhas_validas <= total_linhas:
-        print(f"Linhas sem correspondencia: {total_linhas - linhas_validas}")
-    else:
-        print("Nota: UFW pode gerar mais de um registo por linha (SRC/DST).")
+    print("\nResumo:")
+    print(f"Linhas no log: {total_linhas}")
+    print(f"Linhas com IP valido: {linhas_validas}")
 
     if not registos_por_pais:
-        print("Nenhum acesso identificado no log.")
+        print("Nao encontrei acessos para montar o mapa.")
         return
 
-    print("\nOrigens por pais:")
-    for pais in sorted(registos_por_pais, key=lambda chave: len(registos_por_pais[chave]), reverse=True):
-        acessos = registos_por_pais[pais]
-        print(f"\nPais: {pais} | Total: {len(acessos)}")
-        for acesso in acessos:
-            timestamp = acesso["timestamp"]
-            ip = acesso["ip"]
-            cidade = acesso["cidade"]
-            print(f" - {timestamp} | {ip} | {cidade}")
+    print("\nAcessos agrupados por país:")
+    for pais in sorted(registos_por_pais, key=lambda chave: registos_por_pais[chave]["total"], reverse=True):
+        info = registos_por_pais[pais]
+        print(f"- {pais}: {info['total']} log(s)")
 
     nome_base_log = os.path.basename(caminho_log) or "log"
 
     if dados_csv:
-        nome_csv = os.path.join(PASTA_RELATORIOS, f"{nome_base_log}_acessos_por_cidade.csv")
+        nome_csv = os.path.join(PASTA_RELATORIOS, f"{nome_base_log}_acessos_por_pais.csv")
         with open(nome_csv, "w", newline="", encoding="utf-8") as ficheiro_csv:
             escritor = csv.writer(ficheiro_csv)
-            escritor.writerow(["timestamp", "ip", "pais", "cidade", "latitude", "longitude"])
+            escritor.writerow(["timestamp", "ip", "pais", "latitude", "longitude"])
             for linha in dados_csv:
                 escritor.writerow([
                     linha["timestamp"],
                     linha["ip"],
                     linha["pais"],
-                    linha["cidade"],
                     linha["latitude"],
                     linha["longitude"],
                 ])
-        print(f"\nCSV criado em: {nome_csv}")
+        print(f"\nCSV salvo em: {nome_csv}")
 
-        if contagem_por_cidade:
-            mapa = folium.Map(location=[0, 0], zoom_start=2)
-            for (cidade, pais), info in contagem_por_cidade.items():
-                if not info["latitudes"] or not info["longitudes"]:
-                    continue
-                media_lat = sum(info["latitudes"]) / len(info["latitudes"])
-                media_lon = sum(info["longitudes"]) / len(info["longitudes"])
-                descricao = f"{cidade} ({pais}) - {info['total']} log(s)"
-                folium.Marker(location=[media_lat, media_lon], popup=descricao).add_to(mapa)
-            nome_html = os.path.join(PASTA_RELATORIOS, f"{nome_base_log}_acessos_por_cidade.html")
-            mapa.save(nome_html)
-            print(f"Mapa criado em: {nome_html}")
-        else:
-            print("Nao deu para gerar o mapa porque faltaram coordenadas.")
+        mapa = folium.Map(location=[0, 0], zoom_start=2)
+        for pais, info in registos_por_pais.items():
+            coords = info["coordenadas_ip"]
+            if not coords:
+                continue
+            media_lat = sum(coord[0] for coord in coords) / len(coords)
+            media_lon = sum(coord[1] for coord in coords) / len(coords)
+            descricao = f"{pais} - {info['total']} log(s)"
+            folium.Marker(location=[media_lat, media_lon], popup=descricao).add_to(mapa)
+
+        nome_html = os.path.join(PASTA_RELATORIOS, f"{nome_base_log}_acessos_por_pais.html")
+        mapa.save(nome_html)
+        print(f"Mapa salvo em: {nome_html}")
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

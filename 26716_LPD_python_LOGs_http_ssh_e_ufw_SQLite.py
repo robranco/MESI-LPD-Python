@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Extrai IPs/timestamps via AWK e mostra as origens dos acessos."""
+"""Extrai IPs/timestamps via AWK e grava em SQLite."""
 
-import csv
+import sqlite3
 import os
 import sys
 import subprocess
@@ -20,6 +20,20 @@ CAMINHO_COUNTRY = os.path.join(BASE_MAXMIND, "GeoLite2-Country.mmdb")
 AWK_SCRIPT = _caminho_relativo("regular-expression-awk-ip-address-and-timestamp.awk")
 LOG_PADRAO = "/var/log/apache2/access.log"
 PASTA_RELATORIOS = _caminho_relativo("reports")
+
+
+def obter_caminho_log(argv=None):
+    argumentos = argv if argv is not None else sys.argv[1:]
+    if argumentos:
+        caminho = argumentos[0].strip()
+        if not caminho:
+            raise ValueError("Parametro do log vazio. Forneca um caminho valido.")
+        return caminho
+
+    caminho = input(
+        "Informe o caminho completo do arquivo de log (ex: /var/log/apache2/access.log): "
+    ).strip()
+    return caminho or LOG_PADRAO
 
 
 def para_iso8601(texto):
@@ -77,7 +91,7 @@ def para_iso8601(texto):
 def executar_awk(caminho_log):
     """Chama o AWK para obter timestamp e IP de cada linha."""
     if not os.path.isfile(AWK_SCRIPT):
-        raise FileNotFoundError("Script AWK nao encontrado na raiz do projecto.")
+        raise FileNotFoundError("Script AWK nao encontrado na raiz do projeto.")
 
     comando = ["awk", "-f", AWK_SCRIPT, caminho_log]
     try:
@@ -137,25 +151,20 @@ def obter_localizacao(ip, leitor_city, leitor_country):
     return pais, cidade
 
 
-def main():
-    if len(sys.argv) > 1:
-        caminho_log = sys.argv[1].strip()
-        if not caminho_log:
-            print("Parametro do log vazio. Forneca um caminho valido.")
-            sys.exit(1)
-    else:
-        caminho_log = input(
-            "Informe o caminho completo do ficheiro de log (ex: /var/log/apache2/access.log): "
-        ).strip()
-        if not caminho_log:
-            caminho_log = LOG_PADRAO
+def main(argv=None):
+    argumentos = argv if argv is not None else sys.argv[1:]
+    try:
+        caminho_log = obter_caminho_log(argumentos)
+    except ValueError as erro:
+        print(erro)
+        sys.exit(1)
 
     if not caminho_log:
-        print("Nenhum ficheiro informado. Saindo.")
+        print("Nenhum arquivo informado. Saindo.")
         sys.exit(1)
 
     if not os.path.isfile(caminho_log):
-        print("Ficheiro nao encontrado. Verifique o caminho.")
+        print("Arquivo nao encontrado. Verifique o caminho.")
         sys.exit(1)
 
     try:
@@ -168,8 +177,7 @@ def main():
         print(f"Erro ao abrir base GeoLite2: {erro}")
         sys.exit(1)
 
-    entradas_csv = []
-    linhas_validas = 0
+    registros = []
 
     with leitor_city, leitor_country:
         try:
@@ -181,10 +189,9 @@ def main():
         for ip, timestamp_bruto in entradas:
             if not ip or not timestamp_bruto:
                 continue
-            linhas_validas += 1
             timestamp = para_iso8601(timestamp_bruto)
             pais, cidade = obter_localizacao(ip, leitor_city, leitor_country)
-            entradas_csv.append(
+            registros.append(
                 {
                     "timestamp": timestamp,
                     "ip": ip,
@@ -193,11 +200,11 @@ def main():
                 }
             )
 
-    if not entradas_csv:
-        print("Nenhum registo extraído; nada a gravar.")
+    if not registros:
+        print("Nenhum registro extraido; nada a gravar.")
         return
 
-    entradas_csv.sort(key=lambda item: item["timestamp"])
+    registros.sort(key=lambda item: item["timestamp"])
 
     timestamp_execucao = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
     nome_log = os.path.basename(caminho_log)
@@ -206,29 +213,44 @@ def main():
         componente_caminho = "raiz"
     else:
         componente_caminho = diretorio_relativo.replace(os.sep, "_")
-    nome_saida = f"26716-{timestamp_execucao}-{componente_caminho}-{nome_log}.csv"
+    nome_saida = f"26716-{timestamp_execucao}-{componente_caminho}-{nome_log}.sqlite"
     os.makedirs(PASTA_RELATORIOS, exist_ok=True)
     caminho_saida = os.path.join(PASTA_RELATORIOS, nome_saida)
 
     try:
-        with open(caminho_saida, "w", newline="", encoding="utf-8") as ficheiro_csv:
-            escritor = csv.writer(ficheiro_csv)
-            escritor.writerow(["timestamp", "ip", "country", "city"])
-            for entrada in entradas_csv:
-                escritor.writerow(
-                    [
+        with sqlite3.connect(caminho_saida) as conexao:
+            cursor = conexao.cursor()
+            cursor.execute(
+                """
+                CREATE TABLE IF NOT EXISTS acessos (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    timestamp TEXT,
+                    ip TEXT,
+                    country TEXT,
+                    city TEXT
+                )
+                """
+            )
+            cursor.execute("DELETE FROM acessos")
+            cursor.executemany(
+                "INSERT INTO acessos (timestamp, ip, country, city) VALUES (?, ?, ?, ?)",
+                [
+                    (
                         entrada["timestamp"],
                         entrada["ip"],
                         entrada["country"],
                         entrada["city"],
-                    ]
-                )
-    except OSError as erro:
+                    )
+                    for entrada in registros
+                ],
+            )
+            conexao.commit()
+    except sqlite3.Error as erro:
         print(f"Falha ao gravar {nome_saida}: {erro}")
         sys.exit(1)
 
-    print(f"CSV criado em {nome_saida}")
+    print(f"Base SQLite criada em {nome_saida}")
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

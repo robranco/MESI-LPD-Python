@@ -5,7 +5,7 @@ import base64
 import getpass
 import hashlib
 import sqlite3
-from pathlib import Path
+import sys
 
 try:
     from Crypto.Cipher import AES
@@ -25,11 +25,19 @@ def _decifrar_texto(bloco_base64: str, chave: bytes) -> str:
     return texto.decode("utf-8", errors="ignore")
 
 
-def main():
-    caminho = input("Informe o caminho do ficheiro SQLite cifrado: ").strip()
-    if not caminho:
-        print("Arquivo nao informado. Saindo.")
-        return
+def main(argv=None):
+    argumentos = argv if argv is not None else sys.argv[1:]
+
+    if argumentos:
+        caminho = argumentos[0].strip()
+        if not caminho:
+            print("Arquivo nao informado. Saindo.")
+            return
+    else:
+        caminho = input("Informe o caminho do ficheiro SQLite cifrado: ").strip()
+        if not caminho:
+            print("Arquivo nao informado. Saindo.")
+            return
 
     senha = getpass.getpass("Senha: ")
     if not senha:
@@ -64,4 +72,4 @@ def main():
         print(f"  Cidade: {_decifrar_texto(city, chave)}")
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

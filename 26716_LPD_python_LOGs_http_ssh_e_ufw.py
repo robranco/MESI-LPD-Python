@@ -157,11 +157,13 @@ def contar_linhas(caminho_log):
         raise RuntimeError(f"Nao foi possivel contar as linhas do log: {erro}") from erro
 
 
-def main():
+
+def main(argv=None):
+    argv = [] if argv is None else list(argv)
     print("Analisador de logs (IP e timestamp via AWK)")
 
-    if len(sys.argv) > 1:
-        caminho_log = sys.argv[1].strip()
+    if argv:
+        caminho_log = argv[0].strip()
         if not caminho_log:
             print("Parametro do log vazio. Forneca um caminho valido.")
             sys.exit(1)
@@ -255,4 +257,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

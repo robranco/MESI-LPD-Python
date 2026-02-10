@@ -146,7 +146,7 @@ def verificar_sshpass():
     return True
 
 
-def main():
+def main(argv=None):
     if not verificar_sshpass():
         return
 
@@ -241,7 +241,9 @@ def main():
 
 
 if __name__ == "__main__":
+    import sys
+
     try:
-        main()
+        main(sys.argv[1:])
     except KeyboardInterrupt:
         print("\nOperação cancelada pelo usuário.")

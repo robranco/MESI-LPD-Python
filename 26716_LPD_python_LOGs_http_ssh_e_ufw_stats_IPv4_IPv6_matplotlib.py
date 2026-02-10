@@ -37,6 +37,20 @@ FORMATOS_TIMESTAMP_CONHECIDOS = [
 ]
 
 
+def obter_caminho_log(argv=None):
+    argumentos = argv if argv is not None else sys.argv[1:]
+    if argumentos:
+        caminho = argumentos[0].strip()
+        if not caminho:
+            raise ValueError("Parametro de log vazio. Forneca um caminho valido.")
+        return caminho
+
+    caminho = input(
+        "Informe o caminho completo do arquivo de log (ex: /var/log/apache2/access.log): "
+    ).strip()
+    return caminho or LOG_PADRAO
+
+
 def _pie_chart_base64(valores, labels, cores, titulo):
     fig, eixo = plt.subplots(figsize=(4, 4))
     total = sum(valores)
@@ -282,20 +296,14 @@ def contar_linhas(caminho_log):
         raise RuntimeError(f"Nao foi possivel contar as linhas do log: {erro}") from erro
 
 
-def main():
+def main(argv=None):
     print("Analisador de logs (IP e timestamp via AWK)")
 
-    if len(sys.argv) > 1:
-        caminho_log = sys.argv[1].strip()
-        if not caminho_log:
-            print("Parametro de log vazio. Forneca um caminho valido.")
-            sys.exit(1)
-    else:
-        caminho_log = input(
-            "Informe o caminho completo do arquivo de log (ex: /var/log/apache2/access.log): "
-        ).strip()
-        if not caminho_log:
-            caminho_log = LOG_PADRAO
+    try:
+        caminho_log = obter_caminho_log(argv)
+    except ValueError as erro:
+        print(erro)
+        sys.exit(1)
 
     if not caminho_log:
         print("Nenhum arquivo informado. Saindo.")
@@ -433,4 +441,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

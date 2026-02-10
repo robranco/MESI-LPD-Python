@@ -32,6 +32,12 @@ LOG_PADRAO = "/var/log/apache2/access.log"
 PASTA_RELATORIOS = _caminho_relativo("reports")
 
 
+def obter_parametros(argv=None):
+    argumentos = argv if argv is not None else sys.argv[1:]
+    caminho = argumentos[0].strip() if argumentos else None
+    return caminho
+
+
 def _derivar_chave(senha):
     return hashlib.sha256(senha.encode("utf-8")).digest()
 
@@ -161,7 +167,7 @@ def obter_localizacao(ip, leitor_city, leitor_country):
     return pais, cidade
 
 
-def main():
+def main(argv=None):
     senha_cifrar = getpass("Informe a senha para cifrar a base SQLite com AES 256: ").strip()
     if not senha_cifrar:
         print("Senha vazia. Saindo.")
@@ -169,11 +175,9 @@ def main():
 
     chave = _derivar_chave(senha_cifrar)
 
-    if len(sys.argv) > 1:
-        caminho_log = sys.argv[1].strip()
-        if not caminho_log:
-            print("Parametro do log vazio. Forneca um caminho valido.")
-            sys.exit(1)
+    argumento_cli = obter_parametros(argv)
+    if argumento_cli:
+        caminho_log = argumento_cli
     else:
         caminho_log = input(
             "Informe o caminho completo do arquivo de log (ex: /var/log/apache2/access.log): "
@@ -293,4 +297,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

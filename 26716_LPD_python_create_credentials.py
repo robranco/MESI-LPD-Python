@@ -5,7 +5,7 @@ import getpass
 import hashlib
 from pathlib import Path
 
-ARQUIVO_CREDENCIAIS = Path("26716-LPD-python-credentials.txt")
+ARQUIVO_CREDENCIAIS = Path("26716_LPD_python_credentials.txt")
 
 
 def gerar_hash(texto: str) -> str:

@@ -11,3 +11,6 @@ not-used
 *.pdf
 *.txt
 *.html
+__pycache__
+docs
+
